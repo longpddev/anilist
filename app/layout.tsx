@@ -1,5 +1,16 @@
 import './globals.css'
+import { config } from '@fortawesome/fontawesome-svg-core'
+import '@fortawesome/fontawesome-svg-core/styles.css'
+config.autoAddCss = false
+import { fas } from '@fortawesome/free-solid-svg-icons'
+import {
+  library,
+} from '@fortawesome/fontawesome-svg-core'
+library.add(fas)
 
+
+import { Inter } from '@next/font/google'
+const inter = Inter({ subsets: ['latin'] })
 export default function RootLayout({
   children,
 }: {
@@ -12,7 +23,7 @@ export default function RootLayout({
         head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
       */}
       <head />
-      <body>{children}</body>
+      <body className={inter.className}>{children}</body>
     </html>
   )
 }
