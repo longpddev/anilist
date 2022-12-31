@@ -1,16 +1,16 @@
-import './globals.css'
-import { config } from '@fortawesome/fontawesome-svg-core'
-import '@fortawesome/fontawesome-svg-core/styles.css'
+import "./globals.css"
+import { config } from "@fortawesome/fontawesome-svg-core"
+import "@fortawesome/fontawesome-svg-core/styles.css"
 config.autoAddCss = false
-import { fas } from '@fortawesome/free-solid-svg-icons'
-import {
-  library,
-} from '@fortawesome/fontawesome-svg-core'
+import { fas } from "@fortawesome/free-solid-svg-icons"
+import { library } from "@fortawesome/fontawesome-svg-core"
 library.add(fas)
 
-
-import { Inter } from '@next/font/google'
-const inter = Inter({ subsets: ['latin'] })
+import { Overpass } from "@next/font/google"
+import Header from "../ui/Header"
+const overpass = Overpass({
+  subsets: ["latin"],
+})
 export default function RootLayout({
   children,
 }: {
@@ -18,12 +18,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      {/*
-        <head /> will contain the components returned by the nearest parent
-        head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
-      */}
       <head />
-      <body className={inter.className}>{children}</body>
+      <body className={overpass.className + " " + "site-theme-dark"}>
+        <Header />
+        {children}
+      </body>
     </html>
   )
 }

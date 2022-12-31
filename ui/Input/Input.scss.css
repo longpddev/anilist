@@ -1,0 +1,26 @@
+@tailwind base;
+
+@layer base {
+  .input {
+    @apply flex items-center;
+    @apply rounded-[6px] cursor-pointer overflow-hidden;
+    box-shadow: 0 14px 30px rgba(var(--color-shadow-blue), 0.1), 0 4px 4px rgba(var(--color-shadow-blue), 0.04);
+    @apply text-sm font-semibold w-full bg-background-100;
+    padding: 11.5px 16px;
+    gap: 10px;
+
+    input {
+      @apply bg-transparent w-full text-[13px];
+      outline: unset;
+      border: unset;
+      letter-spacing: 0.03rem;
+      line-height: 1.15;
+    }
+    svg {
+      @apply relative;
+      vertical-align: middle;
+    }
+    input {
+    }
+  }
+}

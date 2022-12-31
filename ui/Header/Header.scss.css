@@ -1,0 +1,86 @@
+header {
+  @apply h-[75px] sticky top-0 bg-[#152232] flex items-center;
+
+  .link {
+    @apply text-gray-700 hover:text-gray-900;
+  }
+
+  .button__link {
+    @apply rounded-md px-4 py-2 text-white bg-blue-550 transition-all;
+
+    &:hover {
+      box-shadow: 0 2px 10px rgb(8 150 230 / 60%);
+      transform: scale(1.03);
+    }
+  }
+}
+
+.submenu {
+  @apply rounded-lg overflow-hidden bg-background-100;
+  box-shadow: 0 14px 30px rgba(var(--color-shadow-blue), 0.25), 0 4px 4px rgba(var(--color-shadow-blue), 0.15);
+  svg {
+    color: inherit;
+  }
+
+  &__head {
+    padding: 21px 27px;
+  }
+  &__item {
+    @apply flex gap-4 text-gray-800;
+    &:hover {
+      @apply text-gray-900;
+    }
+  }
+
+  &__left {
+  }
+
+  &__right {
+    a {
+      @apply text-gray-800;
+      &:hover {
+        @apply text-gray-900;
+      }
+    }
+    &--sub {
+      @apply flex gap-2 whitespace-nowrap;
+      a {
+        @apply text-gray-600 text-[12px];
+        &:hover {
+          @apply text-gray-800;
+        }
+      }
+    }
+  }
+
+  &__footer {
+    @apply bg-background-200 text-gray-700 grid;
+    background: rgb(var(--color-background-200));
+    border-radius: 0 0 6px 6px;
+    grid-gap: 14px 10px;
+    grid-template-columns: 80px auto;
+    padding: 16px 27px;
+    &--item {
+      font-size: 11px;
+      @apply text-gray-700 gap-1.5 flex hover:text-gray-900 cursor-pointer;
+    }
+  }
+}
+
+.header-menu {
+  @apply relative;
+}
+.menu-lv1 {
+  padding: 18px 16px;
+
+  .submenu {
+    @apply transition-all opacity-0 pointer-events-none;
+    @apply absolute top-[80%] left-0;
+  }
+
+  &:hover {
+    .submenu {
+      @apply opacity-100 pointer-events-auto top-[100%];
+    }
+  }
+}
