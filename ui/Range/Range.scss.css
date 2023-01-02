@@ -1,0 +1,11 @@
+.range {
+  height: 0.4em;
+  padding: 0.2em 0;
+  &__point {
+    height: 0.4em;
+    &--dot {
+      height: 0.8em;
+      width: 0.8em;
+    }
+  }
+}

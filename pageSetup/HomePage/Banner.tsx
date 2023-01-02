@@ -1,11 +1,23 @@
+"use client"
+
 import Image from "next/image"
 import Link from "next/link"
-import React from "react"
-import Icon from "../Icon"
+import React, { use } from "react"
+import Icon from "@/ui/Icon"
+import landing_stats from "@/assets/landing_stats.svg"
+import landing_social from "@/assets/landing_social.svg"
+import landing_custom from "@/assets/landing_custom.svg"
+import landing_apps from "@/assets/landing_apps.svg"
+import fetchGql from "@/api/client"
+import { graphql } from "anilist_gql"
+import { MEDIA_BY_ID } from "gql/media"
 
+const fetching = fetchGql(graphql(MEDIA_BY_ID), { id: 15125 })
 const Banner = () => {
+  const data = use(fetching)
+  console.log(data)
   return (
-    <div className="container">
+    <div className="c_container mb-7 md:mb-14">
       <div className="md:py-14 px-12 py-7 md:mt-14 mt-7">
         <div className="text-center">
           <h1 className="text-4xl font-semibold text-blue-100 mb-5">
@@ -20,7 +32,7 @@ const Banner = () => {
         <div className="grid mx-auto max-w-[940px] md:grid-cols-2 grid-cols-1 gap-x-16 gap-y-14 md:mt-[85px] md:mb-[90px] mt-[45px] mb-[40px]">
           <div className="flex gap-10 items-start">
             <Image
-              src="https://anilist.co/img/landing/stats.svg"
+              src={landing_stats}
               alt="title"
               width={80}
               height={72}
@@ -35,7 +47,7 @@ const Banner = () => {
           </div>
           <div className="flex gap-10 items-start">
             <Image
-              src="https://anilist.co/img/landing/apps.svg"
+              src={landing_apps}
               alt="title"
               width={80}
               height={96}
@@ -50,7 +62,7 @@ const Banner = () => {
           </div>
           <div className="flex gap-10 items-start">
             <Image
-              src="https://anilist.co/img/landing/social.svg"
+              src={landing_social}
               alt="title"
               width={80}
               height={85}
@@ -65,7 +77,7 @@ const Banner = () => {
           </div>
           <div className="flex gap-10 items-start">
             <Image
-              src="https://anilist.co/img/landing/custom.svg"
+              src={landing_custom}
               alt="title"
               width={80}
               height={81}

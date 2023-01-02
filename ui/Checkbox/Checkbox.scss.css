@@ -1,0 +1,28 @@
+.checkbox {
+  font-size: 20px;
+  width: 0.75em;
+  line-height: inherit;
+  button {
+    background: rgb(var(--color-background-300));
+    border-radius: 0.25em;
+    width: 0.75em;
+    height: 0.75em;
+    @apply transition-all;
+  }
+  .unchecked {
+    border: 2px solid rgb(var(--color-gray-400));
+  }
+
+  .checked {
+    background: rgb(var(--color-blue-600));
+    color: rgb(var(--color-blue-300));
+  }
+
+  svg {
+    font-size: 0.5em;
+  }
+
+  input {
+    @apply m-0 block;
+  }
+}

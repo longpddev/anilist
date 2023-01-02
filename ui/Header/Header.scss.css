@@ -1,8 +1,8 @@
 header {
-  @apply h-[75px] sticky top-0 bg-[#152232] flex items-center;
+  @apply h-[75px] sticky top-0 bg-[#152232] flex items-center z-50;
 
   .link {
-    @apply text-gray-700 hover:text-gray-900;
+    @apply text-gray-700 hover:text-gray-900 text-sm font-bold;
   }
 
   .button__link {

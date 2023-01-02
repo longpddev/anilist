@@ -2,18 +2,18 @@
 import { faSearch, faSlidersH } from "@fortawesome/free-solid-svg-icons"
 import clsx from "clsx"
 import React, { useState } from "react"
-import Icon from "../Icon"
-import Input, { InputLabel } from "../Input"
-import { Select } from "../Select"
-import "./FormFilter.scss.css"
+import Icon from "@/ui/Icon"
+import Input, { InputLabel } from "@/ui/Input"
+import { Select } from "@/ui/Select"
+import AdvanceOption from "./AdvanceOption"
+
 const FormFilter = () => {
-  const [advanceOption, advanceOptionSet] = useState(true)
+  const [advanceOption, advanceOptionSet] = useState(false)
   const [val, valSet] = useState<number | string>("option1")
   const [val1, val1Set] = useState<string>("option1")
 
   return (
     <div>
-      {" "}
       <div className="flex pb-2.5 home-filter">
         <div className="items-end relative flex flex-wrap gap-x-6 gap-y-2">
           <InputLabel label="Search">
@@ -98,80 +98,9 @@ const FormFilter = () => {
           show: advanceOption,
         })}
       >
-        <div className="home-filter__dropdown">
+        <div className="home-filter__dropdown max-w-[900px] w-full">
           {advanceOption && <AdvanceOption></AdvanceOption>}
         </div>
-      </div>
-    </div>
-  )
-}
-
-const AdvanceOption = () => {
-  const [val, valSet] = useState<number | string>("option1")
-  const [val1, val1Set] = useState<string>("option1")
-  return (
-    <div>
-      <div className="items-end relative flex flex-wrap gap-x-6 gap-y-2">
-        <InputLabel label="Airing Status">
-          <Select
-            className="bg-background-200"
-            value={val}
-            onChangeValue={(val) => valSet(val)}
-            placeholder="Any"
-          >
-            {Array(20)
-              .fill(1)
-              .map((_, index) => ({
-                label: "option" + index,
-                value: "value" + index,
-              }))}
-          </Select>
-        </InputLabel>
-        <InputLabel label="Streaming On">
-          <Select
-            className="bg-background-200"
-            value={val}
-            onChangeValue={(val) => valSet(val)}
-            placeholder="Any"
-          >
-            {Array(20)
-              .fill(1)
-              .map((_, index) => ({
-                label: "option" + index,
-                value: "value" + index,
-              }))}
-          </Select>
-        </InputLabel>
-        <InputLabel label="Country Of Origin">
-          <Select
-            className="bg-background-200"
-            value={val}
-            onChangeValue={(val) => valSet(val)}
-            placeholder="Any"
-          >
-            {Array(20)
-              .fill(1)
-              .map((_, index) => ({
-                label: "option" + index,
-                value: "value" + index,
-              }))}
-          </Select>
-        </InputLabel>
-        <InputLabel label="Source Material">
-          <Select
-            className="bg-background-200"
-            value={val}
-            onChangeValue={(val) => valSet(val)}
-            placeholder="Any"
-          >
-            {Array(20)
-              .fill(1)
-              .map((_, index) => ({
-                label: "option" + index,
-                value: "value" + index,
-              }))}
-          </Select>
-        </InputLabel>
       </div>
     </div>
   )

@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import React, { useRef, useState } from "react"
 import "./Select.scss.css"
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons"
+import { IInput } from "../../interface/input"
 
 type IValue = string | number
 interface IOption {
@@ -13,7 +14,8 @@ interface IOption {
   //disable?: boolean
 }
 interface ISelectProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "children"> {
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "children">,
+    IInput {
   children: IOption[]
   onChangeValue: (val: IValue) => void
 }
@@ -22,6 +24,7 @@ const Select: React.FC<ISelectProps> = ({
   className,
   onChangeValue,
   value,
+  dark,
   ...props
 }) => {
   const [isFocus, isFocusSet] = useState(false)
@@ -47,7 +50,12 @@ const Select: React.FC<ISelectProps> = ({
         "show-dropdown": isFocus,
       })}
     >
-      <div className={clsx("select__input relative", className)}>
+      <div
+        className={clsx("select__input relative", className, {
+          "bg-background-100": !dark,
+          "bg-background-200": dark,
+        })}
+      >
         <input
           className={"pointer-events-none"}
           type="text"
