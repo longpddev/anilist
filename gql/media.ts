@@ -1,5 +1,5 @@
 import { FragmentType, graphql } from "anilist_gql"
-
+import { ResultOf } from "@graphql-typed-document-node/core"
 export const MEDIA_BY_ID = graphql(`
   query Media($id: Int) {
     Media(id: $id, type: ANIME) {
