@@ -12,7 +12,7 @@ import fetchGql from "@/api/client"
 import { graphql } from "anilist_gql"
 import { MEDIA_BY_ID } from "gql/media"
 
-const fetching = fetchGql(graphql(MEDIA_BY_ID), { id: 15125 })
+const fetching = fetchGql(MEDIA_BY_ID, { id: 15125 })
 const Banner = () => {
   const data = use(fetching)
   console.log(data)

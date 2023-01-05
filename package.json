@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev:turbo": "next dev --turbo --show-all",
-    "dev": "next dev",
+    "dev": "next dev --show-all",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
