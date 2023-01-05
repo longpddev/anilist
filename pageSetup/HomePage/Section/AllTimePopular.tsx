@@ -1,5 +1,5 @@
 import AnimeCard from "@/ui/AnimeCard"
-import {IMEDIA_FIELD} from "gql/media"
+import { IMEDIA_FIELD } from "gql/media"
 import React from "react"
 import CardSection from "./CardSection"
 
@@ -8,9 +8,7 @@ const AllTimePopular: React.FC<{
 }> = ({ data }) => {
   return (
     <CardSection title="All time popular" link="/">
-      {data.map((item, i) => item ? (
-          <AnimeCard data={item} key={i} />
-        ) : null)}
+      {data.map((item, i) => (item ? <AnimeCard data={item} key={i} /> : null))}
     </CardSection>
   )
 }

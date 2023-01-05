@@ -1,53 +1,79 @@
+"use client"
+
 import Image from "next/image"
 import Link from "next/link"
 import React from "react"
-import image from "@/assets/anime_image_demo.png"
 import Icon from "../Icon"
 import { faSmile } from "@fortawesome/free-regular-svg-icons"
-import type { IMEDIA_FIELD } from "gql/media"
+import { IMEDIA_FIELD, MEDIA_FIELD } from "gql/media"
+import { useFragment } from "anilist_gql"
+import dayjs from "dayjs"
+import { getMediaLabel } from "untils/Anilist"
 
 const AnimeCard: React.FC<{
   data: IMEDIA_FIELD
 }> = ({ data }) => {
+  const item = useFragment(MEDIA_FIELD, data)
+  console.log(item)
   return (
     <div className="anime-card relative">
       <Image
-        src={image}
-        alt="anime card"
-        width={185}
-        height={265}
+        src={item.coverImage?.large || ""}
+        alt={item.title?.userPreferred || "anime image"}
+        width={239}
+        height={311}
         className="rounded-md mb-2 w-full"
       ></Image>
       <div>
-        <Link href={"/"}>Chainsaw Man</Link>
+        <Link href={"/"}>{item.title?.userPreferred || ""}</Link>
       </div>
-      <AnimeCardTooltip />
+      <AnimeCardTooltip data={data} />
     </div>
   )
 }
 
-const AnimeCardTooltip = () => {
+interface FuzzyDate {
+  year: number
+  month: number
+  day: number
+}
+
+const getDate = (date: FuzzyDate) => {
+  return new Date(date.year, date.month, date.day)
+}
+
+const AnimeCardTooltip: React.FC<{
+  data: IMEDIA_FIELD
+}> = ({ data }) => {
+  const item = useFragment(MEDIA_FIELD, data)
+  item.nextAiringEpisode
   return (
     <div className="card-tooltip right">
       <div className="card-tooltip__header">
-        <div className="card-tooltip__date">Fall 2022</div>
+        {item.startDate && (
+          <div className="card-tooltip__date">
+            {dayjs(getDate(item.startDate as FuzzyDate)).format("MMM YYYY")}
+          </div>
+        )}
         <div className="card-tooltip__score">
           <Icon icon={faSmile}></Icon>
-          <span className="card-tooltip__percentage">86%</span>
+          <span className="card-tooltip__percentage">{item.averageScore}%</span>
         </div>
       </div>
-      <div className="card-tooltip__studios">MAPPA</div>
+      <div className="card-tooltip__studios">
+        {item?.studios?.edges?.find((item) => item?.isMain)?.node?.name}
+      </div>
       <div className="card-tooltip__info">
-        <span>TV Show</span>
+        {item.format && <span>{getMediaLabel(item.format)}</span>}
         <span className="card-tooltip__separator">•</span>
-        <span>12 episodes</span>
+        <span>{item.duration}</span>
       </div>
       <div className="card-tooltip__genres">
-        <div className="card-tooltip__genre">Action</div>
-        <div className="card-tooltip__genre">Comedy</div>
-        <div className="card-tooltip__genre">Drama</div>
-        <div className="card-tooltip__genre">Horror</div>
-        <div className="card-tooltip__genre">Supernatural</div>
+        {item.genres?.filter(Boolean).map((item, index) => (
+          <div className="card-tooltip__genre" key={index}>
+            {item}
+          </div>
+        ))}
       </div>
     </div>
   )

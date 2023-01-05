@@ -10,7 +10,6 @@ export default async function Home() {
     nextSeason: MediaSeason.Spring,
     nextYear: 2023,
   })
-  console.log(section)
   return (
     <div>
       <Banner />
