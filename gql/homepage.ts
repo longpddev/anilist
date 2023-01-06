@@ -1,6 +1,7 @@
 import { graphql } from "anilist_gql"
 import { MEDIA_FIELD } from "./media"
 import { ResultOf } from "@graphql-typed-document-node/core"
+
 export const HOME_PAGE_SECTION = graphql(`
   query HomeSection(
     $season: MediaSeason
