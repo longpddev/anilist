@@ -1,5 +1,9 @@
-import { MediaFormat } from "anilist_gql/graphql"
-import { MediaFormatLabel } from "interface/Anilist"
+import { MediaFormat, MediaSeason, MediaStatus } from "anilist_gql/graphql"
+import {
+  MediaFormatLabel,
+  MediaSeasonLabel,
+  MediaStatusLabel,
+} from "interface/Anilist"
 import { convert } from "chromatism"
 interface IRgb {
   r: number
@@ -47,7 +51,6 @@ export function closestColor(color: IRgb, listColor: ListColor) {
   // t = Object(o["convert"])(t).rgb;
   let result: undefined | ColorAnime,
     i = 1 / 0
-  console.log(color)
   listColor.forEach((item, s) => {
     const r = item.background
     let n =
@@ -65,7 +68,18 @@ export const getMediaLabel = (key: MediaFormat) => {
   return MediaFormatLabel[key as keyof typeof MediaFormatLabel]
 }
 
-export function getVariableOfTooltipCard(color: string, isDark: false) {
+export const getSeasonLabel = (key: MediaSeason) => {
+  return MediaSeasonLabel[key as keyof typeof MediaSeasonLabel]
+}
+
+export const getStatusLabel = (key: MediaStatus) => {
+  return MediaStatusLabel[key as keyof typeof MediaStatusLabel]
+}
+
+export function getVariableOfTooltipCard(
+  color: string,
+  isDark: boolean = false
+) {
   const a = closestColor(convert(color).rgb, colorBase),
     background = convert(a.background),
     text = convert(a.text),
@@ -81,4 +95,75 @@ export function getVariableOfTooltipCard(color: string, isDark: false) {
     "--media-background-text": text.csshsl,
     "--media-overlay-text": n,
   }
+}
+
+const TOOLTIP_SPACE = 10
+export const calcRelation = (
+  tooltipRect: DOMRect,
+  anchorRect: DOMRect,
+  priorities: Array<"top" | "right" | "bottom" | "left"> = [
+    "top",
+    "right",
+    "bottom",
+    "left",
+  ]
+) => {
+  const { innerWidth: width, innerHeight: height } = window
+  const { width: tooltipWidth, height: tooltipHeight } = tooltipRect
+  const checker = {
+    top: () => {
+      if (anchorRect.top - tooltipHeight - TOOLTIP_SPACE > 0) {
+        return {
+          position: "top",
+          left: anchorRect.left + anchorRect.width / 2 - tooltipWidth / 2,
+          top: anchorRect.top - tooltipHeight - TOOLTIP_SPACE,
+        }
+      }
+    },
+    right: () => {
+      if (anchorRect.right + tooltipWidth + TOOLTIP_SPACE < width) {
+        return {
+          position: "right",
+          left: anchorRect.right + TOOLTIP_SPACE,
+          top: anchorRect.top + anchorRect.height / 2 - tooltipHeight / 2,
+        }
+      }
+    },
+    bottom: () => {
+      if (anchorRect.bottom + tooltipHeight + TOOLTIP_SPACE < height) {
+        return {
+          position: "bottom",
+          left: anchorRect.left + anchorRect.width / 2 - tooltipWidth / 2,
+          top: anchorRect.bottom + TOOLTIP_SPACE,
+        }
+      }
+    },
+    left: () => {
+      if (anchorRect.left - tooltipWidth - TOOLTIP_SPACE > 0) {
+        return {
+          position: "left",
+          left: anchorRect.left - tooltipWidth - TOOLTIP_SPACE,
+          top: anchorRect.top + anchorRect.height / 2 - tooltipHeight / 2,
+        }
+      }
+    },
+  }
+
+  for (let key of priorities) {
+    const result = checker[key]()
+    if (result) return result
+  }
+
+  console.warn("we cant calc position of: ", tooltipRect, "and: ", anchorRect)
+  return {
+    position: "",
+    left: 0,
+    top: 0,
+  }
+}
+
+export const getColorOfScore = (score: number) => {
+  if (score >= 70) return "--color-green"
+  if (score >= 50) return "--color-orange"
+  return "--color-red"
 }

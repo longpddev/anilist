@@ -115,6 +115,12 @@ module.exports = {
           blue: "rgb(var(--color-shadow-blue, 103,132,187))",
         },
       },
+      overflow: {
+        unset: "unset",
+      },
+    },
+    overflow: {
+      unset: "unset",
     },
   },
   plugins: [

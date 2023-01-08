@@ -1,4 +1,5 @@
 import clsx from "clsx"
+import { ListLayout } from "interface/Anilist"
 import Link from "next/link"
 import React from "react"
 
@@ -7,12 +8,17 @@ interface ICardSectionProps {
   link: string
   className?: string
   children: React.ReactNode
+  isFull?: boolean
+  layout?: keyof typeof ListLayout
 }
+
 const CardSection: React.FC<ICardSectionProps> = ({
   title,
   link,
   className,
   children,
+  isFull,
+  layout = ListLayout.Grid,
 }) => {
   return (
     <div className={clsx(className, "mb-7 md:mb-12")}>
@@ -25,7 +31,14 @@ const CardSection: React.FC<ICardSectionProps> = ({
           View all
         </Link>
       </div>
-      <div className="grid xl:gap-10 lg:gap-7  sm:grid-cols-5 sm:gap-3 grid-cols-2 gap-5">
+      <div
+        className={clsx({
+          "grid xl:gap-10 lg:gap-7 lg:grid-cols-6 sm:grid-cols-5 sm:gap-3 grid-cols-2 gap-5":
+            layout === ListLayout.Grid,
+          "grid grid-cols-1 gap-6": layout === ListLayout.Inline,
+          "grid grid-cols-2 gap-3": layout === ListLayout.Rect,
+        })}
+      >
         {children}
       </div>
     </div>

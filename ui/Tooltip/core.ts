@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react"
+import { calcRelation } from "untils/Anilist"
 
-const TOOLTIP_SPACE = 10
 let currentTooltip: {
   anchor: HTMLElement
   title: string
@@ -36,38 +36,6 @@ const tooltipTemplate = (title: string, description: string) => `
   </div>
 `
 
-const selectLocation = (tooltipRect: DOMRect, anchorRect: DOMRect) => {
-  const { innerWidth: width, innerHeight: height } = window
-  const { width: tooltipWidth, height: tooltipHeight } = tooltipRect
-
-  if (anchorRect.top - tooltipHeight - TOOLTIP_SPACE > 0) {
-    return {
-      position: "top",
-      left: anchorRect.left + anchorRect.width / 2 - tooltipWidth / 2,
-      top: anchorRect.top - tooltipHeight - TOOLTIP_SPACE,
-    }
-  }
-  if (anchorRect.right + tooltipWidth + TOOLTIP_SPACE < width) {
-    return {
-      position: "right",
-      left: anchorRect.right + TOOLTIP_SPACE,
-      top: anchorRect.top + anchorRect.height / 2 - tooltipHeight / 2,
-    }
-  }
-  if (anchorRect.bottom + tooltipHeight + TOOLTIP_SPACE < height) {
-    return {
-      position: "bottom",
-      left: anchorRect.left + anchorRect.width / 2 - tooltipWidth / 2,
-      top: anchorRect.bottom + TOOLTIP_SPACE,
-    }
-  }
-
-  return {
-    position: "left",
-    left: anchorRect.left - tooltipWidth - TOOLTIP_SPACE,
-    top: anchorRect.top + anchorRect.height / 2 - tooltipHeight / 2,
-  }
-}
 export const useTooltipContext = () => {
   const ref = useRef<HTMLDivElement>(null)
   useEffect(() => {
@@ -86,7 +54,7 @@ export const useTooltipContext = () => {
       const tooltipRect = el.getBoundingClientRect()
       const anchorRect = currentTooltip.anchor.getBoundingClientRect()
 
-      const { position, left, top } = selectLocation(tooltipRect, anchorRect)
+      const { position, left, top } = calcRelation(tooltipRect, anchorRect)
 
       el.classList.add(position)
       el.style.transform = `translate(${left}px, ${top}px)`

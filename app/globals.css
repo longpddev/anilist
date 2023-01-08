@@ -84,7 +84,7 @@ body {
   overflow-x: hidden;
 }
 .c_container {
-  @apply xl:max-w-[1176px] px-4 mx-auto w-full;
+  @apply xl:max-w-[1352px] px-4 mx-auto w-full;
 }
 
 .container-sm {

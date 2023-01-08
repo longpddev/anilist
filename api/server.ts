@@ -6,6 +6,7 @@ export default async function fetchGql<TData, TVariables>(
 ): Promise<TData> {
   const res = await fetch("https://graphql.anilist.co", {
     method: "POST",
+    cache: "force-cache",
     headers: {
       "Content-Type": "application/json",
     },
