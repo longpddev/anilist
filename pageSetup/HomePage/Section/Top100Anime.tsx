@@ -11,7 +11,7 @@ const Top100Anime: React.FC<{
   data: (IMEDIA_FIELD | null)[]
 }> = ({ data }) => {
   const isTablet = useMedia(["(max-width: 992px)"], [true], false)
-  if (true)
+  if (isTablet)
     return (
       <CardSection title="Top 100 anime" layout={ListLayout.Rect} link="/">
         {data.map((item, i) =>
@@ -21,13 +21,13 @@ const Top100Anime: React.FC<{
         )}
       </CardSection>
     )
-  // return (
-  //   <CardSection title="Top 100 anime" layout={ListLayout.Inline} link="/">
-  //     {data.map((item, i) =>
-  //       item ? <AnimeCardInline data={item} key={i} index={i + 1} /> : null
-  //     )}
-  //   </CardSection>
-  // )
+  return (
+    <CardSection title="Top 100 anime" layout={ListLayout.Inline} link="/">
+      {data.map((item, i) =>
+        item ? <AnimeCardInline data={item} key={i} index={i + 1} /> : null
+      )}
+    </CardSection>
+  )
 }
 
 export default Top100Anime

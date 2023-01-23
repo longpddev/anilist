@@ -1,0 +1,14 @@
+.anime-detail {
+  @apply flex gap-5;
+  &__left {
+    @apply max-w-[220px] w-full;
+  }
+
+  &__right {
+    @apply w-full flex-auto;
+  }
+
+  &__section {
+    @apply bg-foreground rounded-sm px-4;
+  }
+}
