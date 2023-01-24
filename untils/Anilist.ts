@@ -1,10 +1,18 @@
-import { MediaFormat, MediaSeason, MediaStatus } from "anilist_gql/graphql"
 import {
+  MediaFormat,
+  MediaSeason,
+  MediaSource,
+  MediaStatus,
+} from "anilist_gql/graphql"
+import {
+  FuzzyDate,
   MediaFormatLabel,
   MediaSeasonLabel,
+  MediaSourceLabel,
   MediaStatusLabel,
 } from "interface/Anilist"
 import { convert } from "chromatism"
+import dayjs from "dayjs"
 interface IRgb {
   r: number
   g: number
@@ -72,6 +80,10 @@ export const getSeasonLabel = (key: MediaSeason) => {
   return MediaSeasonLabel[key as keyof typeof MediaSeasonLabel]
 }
 
+export const getSourceLabel = (key: MediaSource) => {
+  return MediaSourceLabel[key as keyof typeof MediaSourceLabel]
+}
+
 export const getStatusLabel = (key: MediaStatus) => {
   return MediaStatusLabel[key as keyof typeof MediaStatusLabel]
 }
@@ -110,9 +122,25 @@ export const calcRelation = (
 ) => {
   const { innerWidth: width, innerHeight: height } = window
   const { width: tooltipWidth, height: tooltipHeight } = tooltipRect
+
+  const a = anchorRect.height / 2 - tooltipHeight / 2
+  const b = anchorRect.width / 2 - tooltipWidth / 2
+  const axisAvailable = {
+    vertical:
+      anchorRect.top - a * -1 > 0 && anchorRect.bottom + a * -1 < height,
+    horizontal:
+      anchorRect.left - b * -1 > 0 && anchorRect.right + b * -1 < width,
+  }
+
+  const spaceAvailable = {
+    top: anchorRect.top - tooltipHeight - TOOLTIP_SPACE > 0,
+    right: anchorRect.right + tooltipWidth + TOOLTIP_SPACE < width,
+    bottom: anchorRect.bottom + tooltipHeight + TOOLTIP_SPACE < height,
+    left: anchorRect.left - tooltipWidth - TOOLTIP_SPACE > 0,
+  }
   const checker = {
     top: () => {
-      if (anchorRect.top - tooltipHeight - TOOLTIP_SPACE > 0) {
+      if (spaceAvailable.top && axisAvailable.horizontal) {
         return {
           position: "top",
           left: anchorRect.left + anchorRect.width / 2 - tooltipWidth / 2,
@@ -121,7 +149,7 @@ export const calcRelation = (
       }
     },
     right: () => {
-      if (anchorRect.right + tooltipWidth + TOOLTIP_SPACE < width) {
+      if (spaceAvailable.right && axisAvailable.vertical) {
         return {
           position: "right",
           left: anchorRect.right + TOOLTIP_SPACE,
@@ -130,7 +158,7 @@ export const calcRelation = (
       }
     },
     bottom: () => {
-      if (anchorRect.bottom + tooltipHeight + TOOLTIP_SPACE < height) {
+      if (spaceAvailable.bottom && axisAvailable.horizontal) {
         return {
           position: "bottom",
           left: anchorRect.left + anchorRect.width / 2 - tooltipWidth / 2,
@@ -139,7 +167,7 @@ export const calcRelation = (
       }
     },
     left: () => {
-      if (anchorRect.left - tooltipWidth - TOOLTIP_SPACE > 0) {
+      if (spaceAvailable.left && axisAvailable.vertical) {
         return {
           position: "left",
           left: anchorRect.left - tooltipWidth - TOOLTIP_SPACE,
@@ -166,4 +194,19 @@ export const getColorOfScore = (score: number) => {
   if (score >= 70) return "--color-green"
   if (score >= 50) return "--color-orange"
   return "--color-red"
+}
+
+export const getDate = (date: FuzzyDate) => {
+  return new Date(date.year, date.month, date.day)
+}
+
+export const formatDate = (
+  date: FuzzyDate | Date,
+  type?: "ShortDate" | "LongDate"
+) => {
+  let format = "MMM D, YYYY"
+
+  if (type === "LongDate") format = "MM DD YYYY"
+  if (!(date instanceof Date)) return dayjs(getDate(date)).format(format)
+  return dayjs(date).format(format)
 }

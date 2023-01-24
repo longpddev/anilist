@@ -1,4 +1,9 @@
-import { MediaFormat, MediaSeason, MediaStatus } from "anilist_gql/graphql"
+import {
+  MediaFormat,
+  MediaSeason,
+  MediaSource,
+  MediaStatus,
+} from "anilist_gql/graphql"
 
 export const MediaFormatLabel = {
   [MediaFormat.Tv]: "TV show",
@@ -25,6 +30,11 @@ export const MediaStatusLabel = {
   [MediaStatus.Hiatus]: "Hiatus",
   [MediaStatus.NotYetReleased]: "NotYetReleased",
   [MediaStatus.Releasing]: "Releasing",
+}
+
+export const MediaSourceLabel = {
+  [MediaSource.Anime]: "Anime",
+  [MediaSource.Manga]: "Manga",
 }
 
 export const ListLayout = {

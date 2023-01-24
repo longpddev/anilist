@@ -9,6 +9,8 @@ let currentTooltip: {
 
 let notify = () => {}
 
+export const getElement = () => currentTooltip?.anchor
+
 export const triggerShow = (
   el: HTMLElement,
   title: string,
@@ -28,7 +30,11 @@ export const triggerHidden = () => {
 }
 
 const tooltipTemplate = (title: string, description: string) => `
-  <div class="tooltip__title">${title}</div>
+  ${
+    typeof title === "string" && title.trim().length > 0
+      ? `<div class="tooltip__title">${title}</div>`
+      : ""
+  }
   <div class="tooltip__content">
     <div class="tooltip__description">
       ${description}

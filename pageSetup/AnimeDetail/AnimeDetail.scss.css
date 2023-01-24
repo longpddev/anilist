@@ -1,14 +1,58 @@
 .anime-detail {
-  @apply flex gap-5;
-  &__left {
-    @apply max-w-[220px] w-full;
+  @media (min-width: 769px) {
+    &__area {
+      @apply flex gap-5;
+    }
+
+    &__left {
+      @apply min-w-[220px] max-w-[220px] w-full;
+    }
+
+    &__right {
+      @apply w-full flex-auto;
+    }
+
+    &__head &__left {
+      margin-top: -125px;
+    }
+
+    &.not-banner &__head &__left {
+      bottom: -145px;
+    }
+
+    &.not-banner &__main &__left {
+      margin-top: 125px;
+    }
   }
 
-  &__right {
-    @apply w-full flex-auto;
+  @media (max-width: 768.9999px) {
+    &__area {
+      @apply flex gap-5 flex-col;
+    }
+
+    &__head &__left {
+      @apply flex gap-4 mt-[-95px];
+
+      img {
+        @apply max-w-[100px];
+      }
+    }
   }
 
   &__section {
     @apply bg-foreground rounded-sm px-4;
   }
+}
+
+.triangle:before {
+  border-color: transparent rgb(var(--color-foreground)) transparent transparent;
+  border-style: solid;
+  border-width: 6px 9px 6px 0;
+  content: "";
+  display: block;
+  height: 10px;
+  left: -9px;
+  position: absolute;
+  top: 12px;
+  width: 10px;
 }

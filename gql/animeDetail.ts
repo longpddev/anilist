@@ -1,4 +1,5 @@
 import { graphql } from "anilist_gql"
+import { ResultOf } from "@graphql-typed-document-node/core"
 
 export const ANIME_DETAIL = graphql(`
   query AnimeDetail($id: Int, $type: MediaType, $isAdult: Boolean) {
@@ -233,3 +234,52 @@ export const ANIME_DETAIL = graphql(`
     }
   }
 `)
+
+export const ANIME_ACTIVITY = graphql(`
+  query ($id: Int, $page: Int) {
+    Page(page: $page, perPage: 10) {
+      pageInfo {
+        total
+        perPage
+        currentPage
+        lastPage
+        hasNextPage
+      }
+      activities(mediaId: $id, sort: ID_DESC, type: MEDIA_LIST) {
+        ... on ListActivity {
+          id
+          userId
+          type
+          status
+          progress
+          replyCount
+          isLocked
+          isSubscribed
+          isLiked
+          likeCount
+          createdAt
+          user {
+            id
+            name
+            avatar {
+              large
+            }
+          }
+          media {
+            id
+            type
+            bannerImage
+            title {
+              userPreferred
+            }
+            coverImage {
+              large
+            }
+          }
+        }
+      }
+    }
+  }
+`)
+export type ANIME_DETAIL_TYPE = ResultOf<typeof ANIME_DETAIL>
+export type ANIME_ACTIVITY_TYPE = ResultOf<typeof ANIME_ACTIVITY>

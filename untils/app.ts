@@ -23,6 +23,11 @@ export const timeToString = (
   return result
 }
 
+/**
+ *
+ * @param num as millisecond
+ * @returns
+ */
 export const numberToTime = (num: number): TimeFormat => {
   let h = 0,
     m = 0,

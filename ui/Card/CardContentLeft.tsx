@@ -2,10 +2,10 @@ import clsx from "clsx"
 import Image from "next/image"
 import Link from "next/link"
 import React from "react"
-
+import noImage from "@/assets/no_image.jpeg"
 export interface ICardContentLeftProps {
   children: React.ReactNode
-  src: string
+  src: string | undefined
   alt: string
   link?: string
   height?: number
@@ -31,7 +31,7 @@ const CardContentLeft: React.FC<ICardContentLeftProps> = ({
       {link ? (
         <Link href={link}>
           <Image
-            src={src}
+            src={src || noImage}
             alt={alt}
             className="inline-block h-full"
             width={height * 0.7391304347826086}
@@ -40,7 +40,7 @@ const CardContentLeft: React.FC<ICardContentLeftProps> = ({
         </Link>
       ) : (
         <Image
-          src={src}
+          src={src || noImage}
           alt={alt}
           className="inline-block h-full"
           width={height * 0.7391304347826086}

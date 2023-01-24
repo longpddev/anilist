@@ -1,8 +1,11 @@
 import {
   PageSection,
+  Recommendations,
+  Reviews,
   StatusDistribution,
   Threads,
   Trailer,
+  Watch,
 } from "@/pageSetup/AnimeDetail"
 import Card, { CardContentLeft, CardContentRight } from "@/ui/Card"
 import Link from "next/link"
@@ -10,7 +13,7 @@ import React from "react"
 
 const page = async ({ params }: { params: { id: string } }) => {
   return (
-    <div className="mt-2.5">
+    <div>
       <PageSection title="Relations">
         <Card>
           <CardContentLeft
@@ -97,6 +100,9 @@ const page = async ({ params }: { params: { id: string } }) => {
       <StatusDistribution />
       <Trailer />
       <Threads />
+      <Watch />
+      <Recommendations />
+      <Reviews />
     </div>
   )
 }

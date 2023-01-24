@@ -28,8 +28,8 @@ export default function RootLayout({
       <body className={overpass.className}>
         <Header />
         {children}
-        <Footer />
         <TooltipContent />
+        <Footer />
       </body>
     </html>
   )
