@@ -2,79 +2,67 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import React from "react"
+import React, { useRef } from "react"
 import Icon from "../Icon"
 import { faSmile } from "@fortawesome/free-regular-svg-icons"
 import { IMEDIA_FIELD, MEDIA_FIELD } from "gql/media"
 import { useFragment } from "anilist_gql"
 import dayjs from "dayjs"
-import { getMediaLabel } from "untils/Anilist"
+import { getMediaLabel, getVariableOfTooltipCard } from "untils/Anilist"
+import AnimeCardTooltip from "./AnimeCardTooltip"
 
 const AnimeCard: React.FC<{
   data: IMEDIA_FIELD
-}> = ({ data }) => {
+  index?: number
+  showIndex?: boolean
+}> = ({ data, showIndex, index }) => {
   const item = useFragment(MEDIA_FIELD, data)
-  console.log(item)
+  const ref = useRef<HTMLDivElement>(null)
   return (
-    <div className="anime-card relative">
-      <Image
-        src={item.coverImage?.large || ""}
-        alt={item.title?.userPreferred || "anime image"}
-        width={239}
-        height={311}
-        className="rounded-md mb-2 w-full"
-      ></Image>
-      <div>
-        <Link href={"/"}>{item.title?.userPreferred || ""}</Link>
-      </div>
-      <AnimeCardTooltip data={data} />
-    </div>
-  )
-}
-
-interface FuzzyDate {
-  year: number
-  month: number
-  day: number
-}
-
-const getDate = (date: FuzzyDate) => {
-  return new Date(date.year, date.month, date.day)
-}
-
-const AnimeCardTooltip: React.FC<{
-  data: IMEDIA_FIELD
-}> = ({ data }) => {
-  const item = useFragment(MEDIA_FIELD, data)
-  item.nextAiringEpisode
-  return (
-    <div className="card-tooltip right">
-      <div className="card-tooltip__header">
-        {item.startDate && (
-          <div className="card-tooltip__date">
-            {dayjs(getDate(item.startDate as FuzzyDate)).format("MMM YYYY")}
-          </div>
-        )}
-        <div className="card-tooltip__score">
-          <Icon icon={faSmile}></Icon>
-          <span className="card-tooltip__percentage">{item.averageScore}%</span>
+    <div
+      ref={ref}
+      className="anime-card relative"
+      style={
+        getVariableOfTooltipCard(
+          item.coverImage?.color || "#ffffff",
+          true
+        ) as React.CSSProperties
+      }
+    >
+      {showIndex && (
+        <div
+          className="rounded-full absolute top-0 left-0 w-9 h-9 z-10 translate-x-[-25%] translate-y-[-25%]"
+          style={{
+            background: "var(--media-background)",
+            color: "var(--media-background-text)",
+          }}
+        >
+          <span className="absolute position-center">
+            <span className="text-[11px]">#</span>
+            <span className="font-bold">{index}</span>
+          </span>
         </div>
+      )}
+      <div className="w-full relative pt-[143.243243%] rounded-md mb-2 overflow-hidden">
+        <Image
+          src={item.coverImage?.extraLarge || ""}
+          alt={item.title?.userPreferred || "anime image"}
+          width={185}
+          height={265}
+          className="absolute inset-0 w-full h-full object-cover"
+        ></Image>
       </div>
-      <div className="card-tooltip__studios">
-        {item?.studios?.edges?.find((item) => item?.isMain)?.node?.name}
+
+      <div>
+        <Link
+          title={item.title?.userPreferred || ""}
+          className="line-clamp-2 anime-card__title"
+          href={"/"}
+        >
+          {item.title?.userPreferred || ""}
+        </Link>
       </div>
-      <div className="card-tooltip__info">
-        {item.format && <span>{getMediaLabel(item.format)}</span>}
-        <span className="card-tooltip__separator">•</span>
-        <span>{item.duration}</span>
-      </div>
-      <div className="card-tooltip__genres">
-        {item.genres?.filter(Boolean).map((item, index) => (
-          <div className="card-tooltip__genre" key={index}>
-            {item}
-          </div>
-        ))}
-      </div>
+      <AnimeCardTooltip data={data} containerRef={ref} />
     </div>
   )
 }

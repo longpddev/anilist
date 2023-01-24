@@ -1,0 +1,12 @@
+import "./AnimeDetail.scss.css"
+
+export { default as HeadDetail } from "./HeadDetail"
+export { default as PageSection } from "./PageSection"
+export { default as StatusDistribution } from "./StatusDistribution"
+export { default as Trailer } from "./Trailer"
+export { default as Threads } from "./Threads"
+export { default as Watch, WatchItem } from "./Watch"
+export { default as Recommendations } from "./Recommendations"
+export { default as Reviews } from "./Reviews"
+export { default as AnimeDetailContainer } from "./AnimeDetailContainer"
+export { default as ReviewItem } from "./ReviewItem"

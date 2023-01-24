@@ -6,11 +6,16 @@ import Link from "next/link"
 import logo from "@/assets/logo.svg"
 
 const Header = () => {
-
   return (
     <header>
       <div className="container-sm flex">
-        <Image src={logo} width="50" height="50" alt="logo"></Image>
+        <Image
+          src={logo}
+          className="self-center"
+          width="50"
+          height="50"
+          alt="logo"
+        ></Image>
         <HeaderMenu />
         <div className="flex items-center gap-4">
           <Link className="link" href={"/"}>

@@ -13,8 +13,8 @@ const FormFilter = () => {
   const [val1, val1Set] = useState<string>("option1")
 
   return (
-    <div>
-      <div className="flex pb-2.5 home-filter">
+    <div className="mb-5 md:mb-10">
+      <div className="flex pb-2.5 home-filter ">
         <div className="items-end relative flex flex-wrap gap-x-6 gap-y-2">
           <InputLabel label="Search">
             <Input

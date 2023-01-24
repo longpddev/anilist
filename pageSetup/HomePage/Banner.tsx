@@ -11,11 +11,9 @@ import landing_apps from "@/assets/landing_apps.svg"
 import fetchGql from "@/api/client"
 import { graphql } from "anilist_gql"
 import { MEDIA_BY_ID } from "gql/media"
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons"
 
-const fetching = fetchGql(MEDIA_BY_ID, { id: 15125 })
 const Banner = () => {
-  const data = use(fetching)
-  console.log(data)
   return (
     <div className="c_container mb-7 md:mb-14">
       <div className="md:py-14 px-12 py-7 md:mt-14 mt-7">
@@ -108,7 +106,7 @@ const JoinNow = () => {
       <span className="mx-auto">Join now</span>
       <div className="rounded-full w-9 mr-2 h-9 bg-[#d9e6ff] relative">
         <Icon
-          icon="chevron-right"
+          icon={faChevronRight}
           className="position-center text-blue-550 text-xl"
         ></Icon>
       </div>
