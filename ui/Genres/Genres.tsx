@@ -4,11 +4,29 @@ import React from "react"
 
 interface IGenresProps extends React.HTMLAttributes<HTMLSpanElement> {
   text: string
+  href?: string
 }
-const Genres: React.FC<IGenresProps> = ({ text, className, ...props }) => {
+const Genres: React.FC<IGenresProps> = ({
+  text,
+  className,
+  href,
+  ...props
+}) => {
+  if (href)
+    return (
+      <Link
+        href={href}
+        {...props}
+        className={clsx(
+          className,
+          "rounded-full anime-genres text-white text-[11px] font-bold leading-[1.636363em]"
+        )}
+      >
+        {text}
+      </Link>
+    )
   return (
-    <Link
-      href={"/"}
+    <span
       {...props}
       className={clsx(
         className,
@@ -16,7 +34,7 @@ const Genres: React.FC<IGenresProps> = ({ text, className, ...props }) => {
       )}
     >
       {text}
-    </Link>
+    </span>
   )
 }
 

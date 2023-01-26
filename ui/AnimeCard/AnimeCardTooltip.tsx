@@ -7,7 +7,7 @@ import dayjs from "dayjs"
 import { IMEDIA_FIELD, MEDIA_FIELD } from "gql/media"
 import { FuzzyDate } from "interface/Anilist"
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react"
-import { calcRelation, getColorOfScore, getMediaLabel } from "untils/Anilist"
+import { calcRelation, getColorOfScore, getMediaLabel } from "utils/Anilist"
 import Genres from "../Genres"
 import Icon from "../Icon"
 

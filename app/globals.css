@@ -154,3 +154,35 @@ hr {
   height: 100%;
   width: 100%;
 }
+
+@keyframes loading {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(50%);
+  }
+}
+
+.skeleton {
+  background: rgba(var(--color-background-300), 0.8);
+  box-shadow: none;
+  opacity: 1;
+  overflow: hidden;
+}
+.skeleton:before {
+  animation: loading 2s linear infinite;
+  background: linear-gradient(
+    90deg,
+    rgba(var(--color-gray-300), 0) 0,
+    rgba(var(--color-blue-700), 0.06) 40%,
+    rgba(var(--color-blue-700), 0.06) 60%,
+    rgba(var(--color-gray-300), 0)
+  );
+  content: "";
+  display: block;
+  height: 100%;
+  transform: translateX(0);
+  width: 200%;
+}

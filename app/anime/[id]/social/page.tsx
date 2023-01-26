@@ -10,7 +10,7 @@ import Image from "next/image"
 import Link from "next/link"
 import React from "react"
 
-const SocialItem = () => {
+const SocialItem = ({ params }: { params: { id: string } }) => {
   return (
     <Card>
       <CardContentLeft src={undefined} alt="" height={115} className="relative">
@@ -55,11 +55,11 @@ const page = () => {
   return (
     <PageSection title="Recent Activity">
       <div className="grid grid-cols-1 gap-4 mt-4">
-        {Array(10)
+        {/* {Array(10)
           .fill(1)
           .map((item, i) => (
             <SocialItem key={i} />
-          ))}
+          ))} */}
       </div>
     </PageSection>
   )

@@ -14,11 +14,11 @@ import {
   getSeasonLabel,
   getStatusLabel,
   getVariableOfTooltipCard,
-} from "untils/Anilist"
+} from "utils/Anilist"
 import AnimeCardTooltip from "./AnimeCardTooltip"
 import clsx from "clsx"
 import Genres from "../Genres"
-import { numberToTime, timeToString } from "untils/app"
+import { numberToTime, timeToString } from "utils/app"
 import { MediaFormat } from "anilist_gql/graphql"
 
 const AnimeCardInline: React.FC<{

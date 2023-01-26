@@ -11,8 +11,8 @@ import { ANIME_DETAIL_TYPE } from "gql/animeDetail"
 import { FuzzyDate } from "interface/Anilist"
 import Link from "next/link"
 import React, { useState } from "react"
-import { formatDate, getSeasonLabel, getSourceLabel } from "untils/Anilist"
-import { timeToString, numberToTime } from "untils/app"
+import { formatDate, getSeasonLabel, getSourceLabel } from "utils/Anilist"
+import { timeToString, numberToTime } from "utils/app"
 import AnimeExternalLinks from "./AnimeExternalLinks"
 import AnimeTags from "./AnimeTags"
 
@@ -180,7 +180,16 @@ const AnimeDetailMain: React.FC<{
         />
 
         {media.tags && <AnimeTags tags={media.tags} />}
-        <AnimeExternalLinks />
+        <AnimeExternalLinks
+          data={
+            media.externalLinks?.map((item) => ({
+              icon: item?.icon as string,
+              color: item?.color as string,
+              site: item?.site as string,
+              link: item?.url as string,
+            })) || []
+          }
+        />
       </aside>
       <main className="anime-detail__right">{children}</main>
     </div>

@@ -4,14 +4,23 @@ import clsx from "clsx"
 import Image from "next/image"
 import Link from "next/link"
 import React from "react"
-
-const ReviewItem: React.FC<{}> = () => {
+import noImage from "@/assets/no_image.jpeg"
+export interface ReviewData {
+  src: string | undefined
+  like: number
+  summary: string
+  id: number
+  username: string
+}
+const ReviewItem: React.FC<{
+  data: ReviewData
+}> = ({ data }) => {
   return (
     <div className="flex gap-4">
       <div className="min-w-[50px]">
-        <Link href="/">
+        <Link href={`/user/${data.username}`}>
           <Image
-            src="https://s4.anilist.co/file/anilistcdn/user/avatar/large/b39336-asraDOOWp2WT.png"
+            src={data.src || noImage}
             width={50}
             height={50}
             alt="avatar"
@@ -19,20 +28,18 @@ const ReviewItem: React.FC<{}> = () => {
         </Link>
       </div>
       <div
-        className={clsx(
-          "flex-auto rounded-lg bg-foreground py-4 px-6 triangle relative"
-        )}
+        className={clsx("flex-auto rounded-lg bg-foreground triangle relative")}
       >
         <Link
-          href="/"
-          className="absolute block inset-0 w-full h-full z-[0]"
-        ></Link>
-        <p className="text-center text-text-lighter italic text-sm z-[1] relative">
-          A Mediocre Story with Nothing New that Would be Glossed if Ufotable
-          with their Unlimited Budget Works didn't Touch it
-        </p>
+          href={`/review/${data.id}`}
+          className="absolute block inset-0 w-full h-full z-[0]  py-4 px-6"
+        >
+          <p className="text-center text-text-lighter italic text-sm z-[1] relative">
+            {data.summary}
+          </p>
+        </Link>
         <p className="absolute bottom-2 right-2 text-[12px] not-italic z-[1]">
-          <Icon icon={faThumbsUp}></Icon>&nbsp;252
+          <Icon icon={faThumbsUp}></Icon>&nbsp;{data.like}
         </p>
       </div>
     </div>

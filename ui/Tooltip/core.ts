@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import { calcRelation } from "untils/Anilist"
+import { calcRelation } from "utils/Anilist"
 
 let currentTooltip: {
   anchor: HTMLElement

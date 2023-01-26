@@ -14,11 +14,11 @@ import {
   getSeasonLabel,
   getStatusLabel,
   getVariableOfTooltipCard,
-} from "untils/Anilist"
+} from "utils/Anilist"
 import AnimeCardTooltip from "./AnimeCardTooltip"
 import Genres from "../Genres"
 import { MediaFormat } from "anilist_gql/graphql"
-import { numberToTime, timeToString } from "untils/app"
+import { numberToTime, timeToString } from "utils/app"
 
 const AnimeCardRect: React.FC<{
   data: IMEDIA_FIELD

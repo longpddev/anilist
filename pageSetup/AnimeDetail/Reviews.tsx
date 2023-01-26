@@ -1,20 +1,15 @@
-import Icon from "@/ui/Icon"
-import { faThumbsUp } from "@fortawesome/free-solid-svg-icons"
-import clsx from "clsx"
-import Image from "next/image"
-import Link from "next/link"
 import React from "react"
 import PageSection from "./PageSection"
-import ReviewItem from "./ReviewItem"
+import ReviewItem, { ReviewData } from "./ReviewItem"
 
-const Reviews = () => {
+const Reviews: React.FC<{
+  data: ReviewData[]
+}> = ({ data }) => {
   return (
     <PageSection title="Review">
-      {Array(4)
-        .fill(1)
-        .map((item, i) => (
-          <ReviewItem key={i} />
-        ))}
+      {data.map((item, i) => (
+        <ReviewItem data={item} key={i} />
+      ))}
     </PageSection>
   )
 }

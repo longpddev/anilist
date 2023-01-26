@@ -3,14 +3,14 @@ import Card, { CardContentLeft } from "@/ui/Card"
 import Link from "next/link"
 import React from "react"
 
-const page = () => {
+const page = ({ params }: { params: { id: string } }) => {
   return (
     <div className="grid grid-cols-1 gap-4 max-w-[700px]">
-      {Array(10)
+      {/* {Array(10)
         .fill(1)
         .map((item, i) => (
           <ReviewItem key={i} />
-        ))}
+        ))} */}
     </div>
   )
 }

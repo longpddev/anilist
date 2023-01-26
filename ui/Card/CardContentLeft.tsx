@@ -5,7 +5,7 @@ import React from "react"
 import noImage from "@/assets/no_image.jpeg"
 export interface ICardContentLeftProps {
   children: React.ReactNode
-  src: string | undefined
+  src: string | undefined | null
   alt: string
   link?: string
   height?: number
@@ -59,5 +59,39 @@ const CardContentLeft: React.FC<ICardContentLeftProps> = ({
     </div>
   )
 }
+
+export const CardContentLeftSkeleton: React.FC<ICardContentLeftProps> = ({
+  children,
+  tags,
+  className,
+  src,
+  alt,
+  link,
+  height = 115,
+}) => (
+  <div
+    className={clsx("w-full flex-auto flex", className)}
+    style={{
+      maxHeight: height,
+    }}
+  >
+    <div
+      className="inline-block h-full skeleton"
+      style={{
+        width: `${height * 0.7391304347826086}px`,
+        height: `${height}px`,
+      }}
+    />
+
+    <div className="p-3 flex flex-col">
+      <div>{children}</div>
+      {tags && (
+        <p className="text-[12px] mt-auto rounded-sm skeleton text-transparent ">
+          <span className=" inline-block">{tags.join(" · ")}</span>
+        </p>
+      )}
+    </div>
+  </div>
+)
 
 export default CardContentLeft

@@ -8,7 +8,7 @@ import { faSmile } from "@fortawesome/free-regular-svg-icons"
 import { IMEDIA_FIELD, MEDIA_FIELD } from "gql/media"
 import { useFragment } from "anilist_gql"
 import dayjs from "dayjs"
-import { getMediaLabel, getVariableOfTooltipCard } from "untils/Anilist"
+import { getMediaLabel, getVariableOfTooltipCard } from "utils/Anilist"
 import AnimeCardTooltip from "./AnimeCardTooltip"
 
 const AnimeCard: React.FC<{
@@ -43,21 +43,23 @@ const AnimeCard: React.FC<{
           </span>
         </div>
       )}
-      <div className="w-full relative pt-[143.243243%] rounded-md mb-2 overflow-hidden">
-        <Image
-          src={item.coverImage?.extraLarge || ""}
-          alt={item.title?.userPreferred || "anime image"}
-          width={185}
-          height={265}
-          className="absolute inset-0 w-full h-full object-cover"
-        ></Image>
-      </div>
+      <Link href={`/anime/${item.id}`}>
+        <div className="w-full relative pt-[143.243243%] rounded-md mb-2 overflow-hidden">
+          <Image
+            src={item.coverImage?.extraLarge || ""}
+            alt={item.title?.userPreferred || "anime image"}
+            width={185}
+            height={265}
+            className="absolute inset-0 w-full h-full object-cover"
+          ></Image>
+        </div>
+      </Link>
 
       <div>
         <Link
           title={item.title?.userPreferred || ""}
           className="line-clamp-2 anime-card__title"
-          href={"/"}
+          href={`/anime/${item.id}`}
         >
           {item.title?.userPreferred || ""}
         </Link>

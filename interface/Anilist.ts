@@ -1,5 +1,6 @@
 import {
   MediaFormat,
+  MediaListStatus,
   MediaSeason,
   MediaSource,
   MediaStatus,
@@ -30,6 +31,24 @@ export const MediaStatusLabel = {
   [MediaStatus.Hiatus]: "Hiatus",
   [MediaStatus.NotYetReleased]: "NotYetReleased",
   [MediaStatus.Releasing]: "Releasing",
+}
+
+export const MediaListColor = {
+  [MediaListStatus.Completed]: "rgb(104, 214, 57)",
+  [MediaListStatus.Current]: "rgb(146, 86, 243)",
+  [MediaListStatus.Dropped]: "rgb(232, 93, 117)",
+  [MediaListStatus.Paused]: "rgb(247, 121, 164)",
+  [MediaListStatus.Planning]: "rgb(2, 169, 255)",
+  [MediaListStatus.Repeating]: "white",
+}
+
+export const MediaListLabel = {
+  [MediaListStatus.Completed]: "Completed",
+  [MediaListStatus.Current]: "Current",
+  [MediaListStatus.Dropped]: "Dropped",
+  [MediaListStatus.Paused]: "Paused",
+  [MediaListStatus.Planning]: "Planning",
+  [MediaListStatus.Repeating]: "Repeating",
 }
 
 export const MediaSourceLabel = {

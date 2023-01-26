@@ -236,7 +236,7 @@ export const ANIME_DETAIL = graphql(`
 `)
 
 export const ANIME_ACTIVITY = graphql(`
-  query ($id: Int, $page: Int) {
+  query AnimeActivity($id: Int, $page: Int) {
     Page(page: $page, perPage: 10) {
       pageInfo {
         total
@@ -281,5 +281,93 @@ export const ANIME_ACTIVITY = graphql(`
     }
   }
 `)
+
+export const ANIME_THREAD = graphql(`
+  query AnimeThread($id: Int, $page: Int, $perPage: Int) {
+    Page(page: $page, perPage: $perPage) {
+      pageInfo {
+        total
+        perPage
+        currentPage
+        lastPage
+        hasNextPage
+      }
+      threads(mediaCategoryId: $id, sort: ID_DESC) {
+        id
+        title
+        replyCount
+        viewCount
+        replyCommentId
+        repliedAt
+        createdAt
+        categories {
+          id
+          name
+        }
+        user {
+          id
+          name
+          avatar {
+            large
+          }
+        }
+        replyUser {
+          id
+          name
+          avatar {
+            large
+          }
+        }
+      }
+    }
+  }
+`)
+
+export const ANIME_CHARACTERS = graphql(`
+  query AnimeCharacters($id: Int, $page: Int) {
+    Media(id: $id) {
+      id
+      characters(page: $page, perPage: 10, sort: [ROLE, RELEVANCE, ID]) {
+        pageInfo {
+          total
+          perPage
+          currentPage
+          lastPage
+          hasNextPage
+        }
+        edges {
+          id
+          role
+          name
+          voiceActorRoles(sort: [RELEVANCE, ID]) {
+            roleNotes
+            dubGroup
+            voiceActor {
+              id
+              name {
+                userPreferred
+              }
+              language: languageV2
+              image {
+                large
+              }
+            }
+          }
+          node {
+            id
+            name {
+              userPreferred
+            }
+            image {
+              large
+            }
+          }
+        }
+      }
+    }
+  }
+`)
 export type ANIME_DETAIL_TYPE = ResultOf<typeof ANIME_DETAIL>
 export type ANIME_ACTIVITY_TYPE = ResultOf<typeof ANIME_ACTIVITY>
+export type ANIME_THREAD_TYPE = ResultOf<typeof ANIME_THREAD>
+export type ANIME_CHARACTERS_TYPE = ResultOf<typeof ANIME_CHARACTERS>

@@ -9,13 +9,15 @@ const Header = () => {
   return (
     <header>
       <div className="container-sm flex">
-        <Image
-          src={logo}
-          className="self-center"
-          width="50"
-          height="50"
-          alt="logo"
-        ></Image>
+        <Link href={"/"}>
+          <Image
+            src={logo}
+            className="self-center"
+            width="50"
+            height="50"
+            alt="logo"
+          ></Image>
+        </Link>
         <HeaderMenu />
         <div className="flex items-center gap-4">
           <Link className="link" href={"/"}>

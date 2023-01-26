@@ -1,5 +1,5 @@
 import { AnimeDetailQuery, MediaType } from "anilist_gql/graphql"
-import { ANIME_DETAIL } from "gql/animeDetail"
+import { ANIME_CHARACTERS, ANIME_DETAIL, ANIME_THREAD } from "gql/animeDetail"
 import fetchGql from "./server"
 
 const data = {
@@ -1286,10 +1286,29 @@ const data = {
   },
 }
 export const getAnimeById = async (id: number) => {
-  return data as any as AnimeDetailQuery
-  // return await fetchGql(ANIME_DETAIL, {
-  //   id,
-  //   type: MediaType.Anime,
-  //   isAdult: false,
-  // })
+  // return data as any as AnimeDetailQuery
+  return await fetchGql(ANIME_DETAIL, {
+    id,
+    type: MediaType.Anime,
+    isAdult: false,
+  })
+}
+
+export const getCharactersByAnimeId = async (id: number, page: number) => {
+  return await fetchGql(ANIME_CHARACTERS, {
+    id,
+    page,
+  })
+}
+
+export const getAnimeThreadAnimeId = async (
+  id: number,
+  page: number,
+  perPage: number
+) => {
+  return await fetchGql(ANIME_THREAD, {
+    id,
+    page,
+    perPage,
+  })
 }

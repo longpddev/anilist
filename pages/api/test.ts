@@ -5,7 +5,6 @@ import { MethodFactory } from "@/api/api_helper"
 const method = MethodFactory()
 method.GET(async (req, res) => {
   const { id } = req.query
-  console.log("api test run")
   await new Promise((res) => {
     setTimeout(() => res(true), 500)
   })

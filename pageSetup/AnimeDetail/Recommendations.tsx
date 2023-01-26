@@ -1,37 +1,53 @@
+import { MediaSource, MediaType, Recommendation } from "anilist_gql/graphql"
 import Image from "next/image"
 import Link from "next/link"
 import React from "react"
 import PageSection from "./PageSection"
+import noImage from "@/assets/no_image.jpeg"
 
-const RecommendationsItem: React.FC<{}> = () => {
+interface RecommendationItemData {
+  title: string
+  src?: string
+  id: number
+  type: MediaType
+}
+const RecommendationsItem: React.FC<{ data: RecommendationItemData }> = ({
+  data,
+}) => {
   return (
-    <div className="min-w-[130px]">
-      <Link href="/">
+    <div className="max-w-[130px] w-full">
+      <Link
+        href={
+          data.type === MediaType.Anime
+            ? `/anime/${data.id}`
+            : `/manga/${data.id}`
+        }
+      >
         <Image
-          src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx113415-bbBWj4pEFseh.jpg"
+          src={data.src || noImage}
           height={180}
           width={130}
           className="w-full rounded-md"
           alt=""
         ></Image>
 
-        <p className="text-text-lighter mt-2.5 block hover:text-blue text-sm">
-          Jujutsu Kaisen
+        <p className="text-text-lighter mt-2.5 block hover:text-blue text-sm line-clamp-2">
+          {data.title}
         </p>
       </Link>
     </div>
   )
 }
-const Recommendations = () => {
+const Recommendations: React.FC<{
+  data: RecommendationItemData[]
+}> = ({ data }) => {
   return (
     <PageSection title="Recommendations" full>
       <div className="overflow-auto">
         <div className=" flex gap-4">
-          {Array(10)
-            .fill(1)
-            .map((item, i) => (
-              <RecommendationsItem key={i}></RecommendationsItem>
-            ))}
+          {data.map((item, i) => (
+            <RecommendationsItem key={i} data={item}></RecommendationsItem>
+          ))}
         </div>
       </div>
     </PageSection>

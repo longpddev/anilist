@@ -30,7 +30,6 @@ const HeadDetail: React.FC<{
   data: ANIME_DETAIL_TYPE
 }> = ({ parentPath, data }) => {
   const currentPath = usePathname() || ""
-  console.log(currentPath)
   return (
     <div className="bg-foreground">
       {data.Media?.bannerImage && (
@@ -104,28 +103,25 @@ const HeadDetail: React.FC<{
               )}
 
             {data.Media?.staffPreview?.edges &&
-              data.Media?.staffPreview?.edges.length > 0 && (
-                <li className="p-3.5">
-                  <NavLink
-                    currentPath={currentPath}
-                    href={parentPath + "/staff"}
-                  >
-                    staff
-                  </NavLink>
-                </li>
-              )}
+            data.Media?.staffPreview?.edges.length > 0 ? (
+              <li className="p-3.5">
+                <NavLink currentPath={currentPath} href={parentPath + "/staff"}>
+                  staff
+                </NavLink>
+              </li>
+            ) : null}
 
             {data.Media?.reviewPreview?.pageInfo?.total &&
-              data.Media?.reviewPreview?.pageInfo?.total > 0 && (
-                <li className="p-3.5">
-                  <NavLink
-                    currentPath={currentPath}
-                    href={parentPath + "/reviews"}
-                  >
-                    reviews
-                  </NavLink>
-                </li>
-              )}
+            data.Media?.reviewPreview?.pageInfo?.total > 0 ? (
+              <li className="p-3.5">
+                <NavLink
+                  currentPath={currentPath}
+                  href={parentPath + "/reviews"}
+                >
+                  reviews
+                </NavLink>
+              </li>
+            ) : null}
 
             {data.Media?.stats?.statusDistribution &&
               data.Media?.stats?.statusDistribution.length > 0 && (
