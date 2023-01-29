@@ -2,7 +2,7 @@
 
 import { MediaTag } from "anilist_gql/graphql"
 import clsx from "clsx"
-import Link from "next/link"
+import Link from "app/context/NLink"
 import React, { useState } from "react"
 
 const AnimeTags: React.FC<{

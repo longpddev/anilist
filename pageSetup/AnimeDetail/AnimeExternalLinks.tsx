@@ -2,7 +2,6 @@ import Icon from "@/ui/Icon"
 import { faLink } from "@fortawesome/free-solid-svg-icons"
 import { brightness } from "chromatism"
 import clsx from "clsx"
-import Link from "next/link"
 import React from "react"
 
 const AnimeExternalLinks: React.FC<{
@@ -20,7 +19,13 @@ const AnimeExternalLinks: React.FC<{
             style={
               {
                 "--link-color": `${
-                  item.color ? brightness(-7, item.color).cssrgb : "transparent"
+                  item.color
+                    ? (() => {
+                        const rgb = brightness(-7, item.color).rgb
+
+                        return `rgba(${rgb.r},${rgb.g},${rgb.b}, .6)`
+                      })()
+                    : "transparent"
                 }`,
               } as React.CSSProperties
             }

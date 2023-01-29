@@ -1,8 +1,8 @@
 import { graphql } from "anilist_gql"
-import { ResultOf } from "@graphql-typed-document-node/core"
+import type { ResultOf } from "@graphql-typed-document-node/core"
 
-export const ANIME_DETAIL = graphql(`
-  query AnimeDetail($id: Int, $type: MediaType, $isAdult: Boolean) {
+export const ANIME_DETAIL_FOR_LAYOUT = graphql(`
+  query AnimeDetailForLayout($id: Int, $type: MediaType, $isAdult: Boolean) {
     Media(id: $id, type: $type, isAdult: $isAdult) {
       id
       title {
@@ -53,11 +53,53 @@ export const ANIME_DETAIL = graphql(`
       isRecommendationBlocked
       isFavouriteBlocked
       isReviewBlocked
-      nextAiringEpisode {
-        airingAt
-        timeUntilAiring
-        episode
+      studios {
+        edges {
+          isMain
+          node {
+            id
+            name
+          }
+        }
       }
+      externalLinks {
+        id
+        site
+        url
+        type
+        language
+        color
+        icon
+        notes
+        isDisabled
+      }
+      rankings {
+        id
+        rank
+        type
+        format
+        year
+        season
+        allTime
+        context
+      }
+      tags {
+        id
+        name
+        description
+        rank
+        isMediaSpoiler
+        isGeneralSpoiler
+        userId
+      }
+    }
+  }
+`)
+
+export const ANIME_DETAIL = graphql(`
+  query AnimeDetail($id: Int, $type: MediaType, $isAdult: Boolean) {
+    Media(id: $id, type: $type, isAdult: $isAdult) {
+      id
       relations {
         edges {
           id
@@ -119,15 +161,7 @@ export const ANIME_DETAIL = graphql(`
           }
         }
       }
-      studios {
-        edges {
-          isMain
-          node {
-            id
-            name
-          }
-        }
-      }
+
       reviewPreview: reviews(perPage: 2, sort: [RATING_DESC, ID]) {
         pageInfo {
           total
@@ -176,17 +210,7 @@ export const ANIME_DETAIL = graphql(`
           }
         }
       }
-      externalLinks {
-        id
-        site
-        url
-        type
-        language
-        color
-        icon
-        notes
-        isDisabled
-      }
+
       streamingEpisodes {
         site
         title
@@ -196,25 +220,6 @@ export const ANIME_DETAIL = graphql(`
       trailer {
         id
         site
-      }
-      rankings {
-        id
-        rank
-        type
-        format
-        year
-        season
-        allTime
-        context
-      }
-      tags {
-        id
-        name
-        description
-        rank
-        isMediaSpoiler
-        isGeneralSpoiler
-        userId
       }
       mediaListEntry {
         id
@@ -367,7 +372,55 @@ export const ANIME_CHARACTERS = graphql(`
     }
   }
 `)
+
+export const ANIME_STATS = graphql(`
+  query AnimeStats($id: Int) {
+    Media(id: $id) {
+      id
+      rankings {
+        id
+        rank
+        type
+        format
+        year
+        season
+        allTime
+        context
+      }
+      trends(sort: ID_DESC) {
+        nodes {
+          averageScore
+          date
+          trending
+          popularity
+        }
+      }
+      airingTrends: trends(releasing: true, sort: EPISODE_DESC) {
+        nodes {
+          averageScore
+          inProgress
+          episode
+        }
+      }
+      distribution: stats {
+        status: statusDistribution {
+          status
+          amount
+        }
+        score: scoreDistribution {
+          score
+          amount
+        }
+      }
+    }
+  }
+`)
+
+export type ANIME_DETAIL_FOR_LAYOUT_TYPE = ResultOf<
+  typeof ANIME_DETAIL_FOR_LAYOUT
+>
 export type ANIME_DETAIL_TYPE = ResultOf<typeof ANIME_DETAIL>
 export type ANIME_ACTIVITY_TYPE = ResultOf<typeof ANIME_ACTIVITY>
 export type ANIME_THREAD_TYPE = ResultOf<typeof ANIME_THREAD>
 export type ANIME_CHARACTERS_TYPE = ResultOf<typeof ANIME_CHARACTERS>
+export type ANIME_STATS_TYPE = ResultOf<typeof ANIME_STATS>

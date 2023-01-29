@@ -71,3 +71,14 @@ export const numberToTime = (num: number): TimeFormat => {
     s,
   }
 }
+
+export const runOnce = <F extends (...a: any) => any>(cb: F): F => {
+  let cache: ReturnType<F>
+  return function (...args) {
+    if (!cache) cache = cb(...args)
+    return cache
+  } as F
+}
+
+export const sleep = (time: number) =>
+  new Promise((res) => setTimeout(res, time))

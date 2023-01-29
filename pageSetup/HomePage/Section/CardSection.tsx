@@ -1,6 +1,6 @@
 import clsx from "clsx"
 import { ListLayout } from "interface/Anilist"
-import Link from "next/link"
+import Link from "app/context/NLink"
 import React from "react"
 
 interface ICardSectionProps {

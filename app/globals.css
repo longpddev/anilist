@@ -170,6 +170,7 @@ hr {
   box-shadow: none;
   opacity: 1;
   overflow: hidden;
+  position: relative;
 }
 .skeleton:before {
   animation: loading 2s linear infinite;
@@ -185,4 +186,16 @@ hr {
   height: 100%;
   transform: translateX(0);
   width: 200%;
+  position: absolute;
+  top: 0;
+}
+
+.chart-js {
+  --chart-grid-color: #3a4257;
+  --chart-line-color: #3db4f2;
+  --chart-line-background-from: rgba(61, 180, 242, 0.8);
+  --chart-line-background-to: rgba(61, 180, 242, 0);
+  --chart-text-color: rgb(163, 178, 194);
+  --chart-pie-border-color: rgba(61, 180, 242, 0.2);
+  --chart-pie-border-hover-color: rgba(61, 180, 242, 1);
 }

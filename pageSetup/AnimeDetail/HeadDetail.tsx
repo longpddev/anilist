@@ -1,35 +1,21 @@
-"use client"
-
 import clsx from "clsx"
-import Link from "next/link"
+import Link from "app/context/NLink"
 import React from "react"
 import { usePathname } from "next/navigation"
 import Image from "next/image"
 import AddToWhistList from "./AddToWhistList"
 import { AnimeDetailQuery } from "anilist_gql/graphql"
-import { ANIME_DETAIL_TYPE } from "gql/animeDetail"
+import {
+  ANIME_DETAIL_FOR_LAYOUT_TYPE,
+  ANIME_DETAIL_TYPE,
+} from "gql/animeDetail"
 import noImage from "@/assets/no_image.jpeg"
-const NavLink: React.FC<{
-  children: React.ReactNode
-  href: string
-  currentPath: string
-}> = ({ children, href, currentPath }) => (
-  <Link
-    href={href}
-    className={clsx(" hover:text-blue", {
-      "text-text-lighter": currentPath !== href,
-      "text-blue": currentPath === href,
-    })}
-  >
-    {children}
-  </Link>
-)
+import HeadDetailMenu from "./HeadDetailMenu"
 
 const HeadDetail: React.FC<{
   parentPath: string
-  data: ANIME_DETAIL_TYPE
+  data: ANIME_DETAIL_FOR_LAYOUT_TYPE
 }> = ({ parentPath, data }) => {
-  const currentPath = usePathname() || ""
   return (
     <div className="bg-foreground">
       {data.Media?.bannerImage && (
@@ -72,75 +58,43 @@ const HeadDetail: React.FC<{
               __html: data.Media?.description || "",
             }}
           />
-          <ul className="flex justify-between mt-auto overflow-auto">
-            <li className="p-3.5">
-              <NavLink currentPath={currentPath} href={parentPath}>
-                overview
-              </NavLink>
-            </li>
-            {data.Media?.streamingEpisodes &&
-              data.Media?.streamingEpisodes.length > 0 && (
-                <li className="p-3.5">
-                  <NavLink
-                    currentPath={currentPath}
-                    href={parentPath + "/watch"}
-                  >
-                    watch
-                  </NavLink>
-                </li>
-              )}
+          <HeadDetailMenu
+            links={(() => {
+              const links: { name: string; link: string }[] = []
+              links.push({ name: "Overview", link: parentPath })
+              // if (
+              //   data.Media?.streamingEpisodes &&
+              //   data.Media?.streamingEpisodes.length > 0
+              // )
+              links.push({ name: "Watch", link: parentPath + "/watch" })
 
-            {data.Media?.characterPreview?.edges &&
-              data.Media?.characterPreview?.edges.length > 0 && (
-                <li className="p-3.5">
-                  <NavLink
-                    currentPath={currentPath}
-                    href={parentPath + "/characters"}
-                  >
-                    characters
-                  </NavLink>
-                </li>
-              )}
-
-            {data.Media?.staffPreview?.edges &&
-            data.Media?.staffPreview?.edges.length > 0 ? (
-              <li className="p-3.5">
-                <NavLink currentPath={currentPath} href={parentPath + "/staff"}>
-                  staff
-                </NavLink>
-              </li>
-            ) : null}
-
-            {data.Media?.reviewPreview?.pageInfo?.total &&
-            data.Media?.reviewPreview?.pageInfo?.total > 0 ? (
-              <li className="p-3.5">
-                <NavLink
-                  currentPath={currentPath}
-                  href={parentPath + "/reviews"}
-                >
-                  reviews
-                </NavLink>
-              </li>
-            ) : null}
-
-            {data.Media?.stats?.statusDistribution &&
-              data.Media?.stats?.statusDistribution.length > 0 && (
-                <li className="p-3.5">
-                  <NavLink
-                    currentPath={currentPath}
-                    href={parentPath + "/stats"}
-                  >
-                    stats
-                  </NavLink>
-                </li>
-              )}
-
-            <li className="p-3.5">
-              <NavLink currentPath={currentPath} href={parentPath + "/social"}>
-                social
-              </NavLink>
-            </li>
-          </ul>
+              // if (
+              //   data.Media?.characterPreview?.edges &&
+              //   data.Media?.characterPreview?.edges.length > 0
+              // )
+              links.push({
+                name: "Characters",
+                link: parentPath + "/characters",
+              })
+              // if (
+              //   data.Media?.staffPreview?.edges &&
+              //   data.Media?.staffPreview?.edges.length > 0
+              // )
+              links.push({ name: "Staff", link: parentPath + "/staff" })
+              // if (
+              //   data.Media?.reviewPreview?.pageInfo?.total &&
+              //   data.Media?.reviewPreview?.pageInfo?.total > 0
+              // )
+              links.push({ name: "Reviews", link: parentPath + "/reviews" })
+              // if (
+              //   data.Media?.stats?.statusDistribution &&
+              //   data.Media?.stats?.statusDistribution.length > 0
+              // )
+              links.push({ name: "Stats", link: parentPath + "/stats" })
+              links.push({ name: "Social", link: parentPath + "/social" })
+              return links
+            })()}
+          />
         </div>
       </div>
     </div>

@@ -19,6 +19,6 @@ export default async function Home() {
   )
 }
 
-export const generateStaticParams = () => []
+// export const generateStaticParams = () => []
 
 export const revalidate = 86400

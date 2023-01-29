@@ -1,5 +1,13 @@
 import { AnimeDetailQuery, MediaType } from "anilist_gql/graphql"
-import { ANIME_CHARACTERS, ANIME_DETAIL, ANIME_THREAD } from "gql/animeDetail"
+import {
+  ANIME_CHARACTERS,
+  ANIME_DETAIL,
+  ANIME_DETAIL_FOR_LAYOUT,
+  ANIME_STATS,
+  ANIME_STATS_TYPE,
+  ANIME_THREAD,
+} from "gql/animeDetail"
+import { STAFF } from "gql/staff"
 import fetchGql from "./server"
 
 const data = {
@@ -1294,6 +1302,15 @@ export const getAnimeById = async (id: number) => {
   })
 }
 
+export const getAnimeByIdForLayout = async (id: number) => {
+  // return data as any as AnimeDetailQuery
+  return await fetchGql(ANIME_DETAIL_FOR_LAYOUT, {
+    id,
+    type: MediaType.Anime,
+    isAdult: false,
+  })
+}
+
 export const getCharactersByAnimeId = async (id: number, page: number) => {
   return await fetchGql(ANIME_CHARACTERS, {
     id,
@@ -1311,4 +1328,20 @@ export const getAnimeThreadAnimeId = async (
     page,
     perPage,
   })
+}
+
+export const getStaffByAnimeId = async (
+  id: number,
+  page: number,
+  perPage: number
+) => {
+  return await fetchGql(STAFF, {
+    id,
+    page,
+    perPage,
+  })
+}
+
+export const getAnimeStatsById = async (id: number) => {
+  return await fetchGql(ANIME_STATS, { id })
 }

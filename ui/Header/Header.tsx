@@ -2,7 +2,7 @@ import Image from "next/image"
 import React, { use } from "react"
 import HeaderMenu from "./HeaderMenu"
 import "./Header.scss.css"
-import Link from "next/link"
+import Link from "app/context/NLink"
 import logo from "@/assets/logo.svg"
 
 const Header = () => {

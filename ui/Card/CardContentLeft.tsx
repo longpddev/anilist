@@ -1,6 +1,6 @@
 import clsx from "clsx"
 import Image from "next/image"
-import Link from "next/link"
+import Link from "app/context/NLink"
 import React from "react"
 import noImage from "@/assets/no_image.jpeg"
 export interface ICardContentLeftProps {
@@ -76,9 +76,10 @@ export const CardContentLeftSkeleton: React.FC<ICardContentLeftProps> = ({
     }}
   >
     <div
-      className="inline-block h-full skeleton"
+      className="inline-block h-full flex-1 skeleton"
       style={{
-        width: `${height * 0.7391304347826086}px`,
+        maxWidth: `${height * 0.7391304347826086}px`,
+        minWidth: `${height * 0.7391304347826086}px`,
         height: `${height}px`,
       }}
     />

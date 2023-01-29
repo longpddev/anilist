@@ -1,5 +1,5 @@
 import clsx from "clsx"
-import Link from "next/link"
+import Link from "app/context/NLink"
 import React from "react"
 
 interface IGenresProps extends React.HTMLAttributes<HTMLSpanElement> {

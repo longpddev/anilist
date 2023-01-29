@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image"
-import Link from "next/link"
+import Link from "app/context/NLink"
 import React, { use } from "react"
 import Icon from "@/ui/Icon"
 import landing_stats from "@/assets/landing_stats.svg"

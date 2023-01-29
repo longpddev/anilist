@@ -1,7 +1,7 @@
 import Card, { CardContentLeft, CardContentRight } from "@/ui/Card"
 import { CardContentLeftSkeleton } from "@/ui/Card/CardContentLeft"
 import { CardContentRightSkeleton } from "@/ui/Card/CardContentRight"
-import Link from "next/link"
+import Link from "app/context/NLink"
 import React from "react"
 
 interface CharacterData {

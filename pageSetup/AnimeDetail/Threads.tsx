@@ -1,5 +1,5 @@
 import Image from "next/image"
-import Link from "next/link"
+import Link from "app/context/NLink"
 import React from "react"
 import PageSection from "./PageSection"
 import Genres from "@/ui/Genres"
@@ -63,13 +63,53 @@ const ThreadsItem: React.FC<{
   )
 }
 
+const ThreadsItemSkeleton: React.FC<{
+  data: ThreadData
+}> = ({ data }) => {
+  return (
+    <div className="rounded-md bg-foreground p-4 relative">
+      <p className="text-sm text-transparent skeleton inline-block mb-3">
+        {data.title}
+      </p>
+      <div className="flex gap-2 items-center">
+        <div className="w-[25px] h-[25px] skeleton rounded-full"></div>
+        <p className="text-transparent ">
+          <p className="text-inherit skeleton">{data.userName}</p>
+          &nbsp;
+          <p className="text-inherit skeleton">
+            replied{" "}
+            {dayjs
+              .duration(new Date().getTime() - data.repliedAt * 1000)
+              .format("DD [days]")}{" "}
+            ago
+          </p>
+        </p>
+        <div className="ml-auto space-x-2 skeleton min-h-[40px]"></div>
+      </div>
+    </div>
+  )
+}
+
 const Threads: React.FC<{
+  data: ThreadData[]
+}> = ({ data }) => {
+  if (data.length === 0) return null
+  return (
+    <PageSection title="Thread">
+      {data.map((item, i) => (
+        <ThreadsItem key={i} data={item} />
+      ))}
+    </PageSection>
+  )
+}
+
+export const ThreadsSkeleton: React.FC<{
   data: ThreadData[]
 }> = ({ data }) => {
   return (
     <PageSection title="Thread">
       {data.map((item, i) => (
-        <ThreadsItem key={i} data={item} />
+        <ThreadsItemSkeleton key={i} data={item} />
       ))}
     </PageSection>
   )

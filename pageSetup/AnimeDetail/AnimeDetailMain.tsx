@@ -1,44 +1,14 @@
-import Icon from "@/ui/Icon"
-import {
-  faArrowRight,
-  faChevronRight,
-  faHeart,
-  faStar,
-  IconDefinition,
-} from "@fortawesome/free-solid-svg-icons"
 import clsx from "clsx"
-import { ANIME_DETAIL_TYPE } from "gql/animeDetail"
+import { ANIME_DETAIL_FOR_LAYOUT_TYPE } from "gql/animeDetail"
 import { FuzzyDate } from "interface/Anilist"
-import Link from "next/link"
-import React, { useState } from "react"
+import Link from "app/context/NLink"
+import React from "react"
 import { formatDate, getSeasonLabel, getSourceLabel } from "utils/Anilist"
 import { timeToString, numberToTime } from "utils/app"
 import AnimeExternalLinks from "./AnimeExternalLinks"
 import AnimeTags from "./AnimeTags"
+import Ranking from "./Ranking"
 
-const Ranking: React.FC<{
-  href: string
-  children: React.ReactNode
-  type: "POPULAR" | "RATED"
-  className?: string
-}> = ({ href, children, type, className }) => (
-  <Link
-    href={href}
-    className={clsx(
-      "block py-2 text-[12px] whitespace-nowrap anime-detail__section hover:text-blue",
-      className
-    )}
-  >
-    <Icon
-      icon={type === "POPULAR" ? faHeart : faStar}
-      className={clsx({
-        "text-red": type === "POPULAR",
-        "text-yellow": type === "RATED",
-      })}
-    ></Icon>
-    <span className="inline-block w-full text-center ">{children}</span>
-  </Link>
-)
 type IAnimeType = {
   label: string
   types: Array<
@@ -82,11 +52,10 @@ const AnimeType: React.FC<{
 }
 const AnimeDetailMain: React.FC<{
   children: React.ReactNode
-  data: ANIME_DETAIL_TYPE
+  data: ANIME_DETAIL_FOR_LAYOUT_TYPE
 }> = ({ children, data }) => {
   const media = data.Media
   if (!media) return null
-  media.tags
   return (
     <div className="anime-detail__area anime-detail__main c_container md:mt-8 mt-4">
       <aside className="anime-detail__left ">

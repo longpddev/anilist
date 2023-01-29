@@ -1,37 +1,16 @@
+import { getStaffByAnimeId } from "@/api/apiQuery"
 import Card, { CardContentLeft } from "@/ui/Card"
-import Link from "next/link"
-import React from "react"
+import Link from "app/context/NLink"
+import React, { cache, use } from "react"
+import { runOnce } from "utils/app"
+import Content from "./content"
 
-const StaffItem = () => {
-  return (
-    <Card>
-      <CardContentLeft
-        src={undefined}
-        alt=""
-        height={80}
-        tags={["Design Manager (eps 11, 14)"]}
-      >
-        <Link
-          href="/"
-          className="text-text-lighter hover:text-blue text-[12px]"
-        >
-          Tanjirou Kamado
-        </Link>
-      </CardContentLeft>
-    </Card>
-  )
-}
-
+const fetchData = cache(async (id: number) => {
+  return await getStaffByAnimeId(id, 1, 10)
+})
 const page = ({ params }: { params: { id: string } }) => {
-  return (
-    <div className="grid grid-cols-1 gap-4 mt-4">
-      {Array(10)
-        .fill(1)
-        .map((item, i) => (
-          <StaffItem key={i} />
-        ))}
-    </div>
-  )
+  const data = use(fetchData(parseInt(params.id)))
+  return <Content initData={data} animeId={parseInt(params.id)} />
 }
 
 export default page

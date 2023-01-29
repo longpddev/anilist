@@ -7,8 +7,10 @@ import Header from "../ui/Header"
 
 import "@fortawesome/fontawesome-svg-core/styles.css"
 import "./globals.css"
+import "nprogress/nprogress.css"
 import { TooltipContent } from "../ui/Tooltip"
 import Footer from "@/ui/Footer"
+import { ProviderProgress } from "./context/progress"
 config.autoAddCss = false
 library.add(fas)
 library.add(far)
@@ -26,10 +28,12 @@ export default function RootLayout({
     <html lang="en" className="site-theme-dark">
       <head />
       <body className={overpass.className}>
-        <Header />
-        {children}
-        <TooltipContent />
-        <Footer />
+        <ProviderProgress>
+          <Header />
+          {children}
+          <TooltipContent />
+          <Footer />
+        </ProviderProgress>
       </body>
     </html>
   )

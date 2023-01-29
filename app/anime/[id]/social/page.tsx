@@ -1,3 +1,5 @@
+"use client"
+
 import { PageSection } from "@/pageSetup/AnimeDetail"
 import Card, { CardContentLeft } from "@/ui/Card"
 import Icon from "@/ui/Icon"
@@ -7,7 +9,7 @@ import {
   faMessage,
 } from "@fortawesome/free-solid-svg-icons"
 import Image from "next/image"
-import Link from "next/link"
+import Link from "app/context/NLink"
 import React from "react"
 
 const SocialItem = ({ params }: { params: { id: string } }) => {

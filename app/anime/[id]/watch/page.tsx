@@ -1,6 +1,6 @@
 import { ReviewItem, WatchItem } from "@/pageSetup/AnimeDetail"
 import Card, { CardContentLeft } from "@/ui/Card"
-import Link from "next/link"
+import Link from "app/context/NLink"
 import React from "react"
 
 const page = ({ params }: { params: { id: string } }) => {
