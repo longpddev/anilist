@@ -11,14 +11,23 @@ import {
   Watch,
 } from "@/pageSetup/AnimeDetail"
 import Card, { CardContentLeft, CardContentRight } from "@/ui/Card"
-import { MediaFormat, MediaStatus, MediaType } from "anilist_gql/graphql"
-import { MediaListColor, MediaListLabel } from "interface/Anilist"
+import {
+  MediaFormat,
+  MediaStatus,
+  MediaType,
+  MediaRelation,
+} from "anilist_gql/graphql"
+import {
+  MediaListColor,
+  MediaListLabel,
+  MediaRelationLabel,
+} from "interface/Anilist"
 import Link from "app/context/NLink"
-import React, { cache, use } from "react"
+import React, { use } from "react"
 import { getMediaLabel, getSourceLabel, getStatusLabel } from "utils/Anilist"
-import { sleep } from "utils/app"
+import { memoize } from "lodash"
 
-const fetchData = cache(async (id: number) => {
+const fetchData = memoize(async (id: number) => {
   return await Promise.all([
     getAnimeById(id),
     getAnimeThreadAnimeId(id, 1, 4),
@@ -33,7 +42,7 @@ const page = ({ params }: { params: { id: string } }) => {
       {media?.relations?.edges?.length &&
         media?.relations?.edges?.length > 0 && (
           <PageSection title="Relations">
-            {media.relations?.edges?.map((item, i) => (
+            {media.relations?.edges?.slice(0, 8).map((item, i) => (
               <Card key={i}>
                 <CardContentLeft
                   src={item?.node?.coverImage?.large}
@@ -44,7 +53,11 @@ const page = ({ params }: { params: { id: string } }) => {
                   ].filter(Boolean)}
                 >
                   <small className="text-[12px] text-blue lowercase font-medium block mb-2">
-                    {item?.relationType}
+                    {
+                      MediaRelationLabel[
+                        item?.relationType as keyof typeof MediaRelationLabel
+                      ]
+                    }
                   </small>
                   <Link
                     href={"/"}
@@ -153,12 +166,14 @@ const page = ({ params }: { params: { id: string } }) => {
       />
       <Watch
         data={
-          media?.streamingEpisodes?.map((item) => ({
-            site: item?.site as string,
-            title: item?.title as string,
-            thumbnail: item?.thumbnail as string,
-            url: item?.url as string,
-          })) || []
+          media?.streamingEpisodes
+            ?.map((item) => ({
+              site: item?.site as string,
+              title: item?.title as string,
+              thumbnail: item?.thumbnail as string,
+              url: item?.url as string,
+            }))
+            .slice(0, 8) || []
         }
       />
       <Recommendations

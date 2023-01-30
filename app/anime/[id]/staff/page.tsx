@@ -1,12 +1,12 @@
 import { getStaffByAnimeId } from "@/api/apiQuery"
 import Card, { CardContentLeft } from "@/ui/Card"
 import Link from "app/context/NLink"
-import React, { cache, use } from "react"
-import { runOnce } from "utils/app"
+import { memoize } from "lodash"
+import React, { use } from "react"
 import Content from "./content"
 
-const fetchData = cache(async (id: number) => {
-  return await getStaffByAnimeId(id, 1, 10)
+const fetchData = memoize(async (id: number) => {
+  return await getStaffByAnimeId(id, 1, 20)
 })
 const page = ({ params }: { params: { id: string } }) => {
   const data = use(fetchData(parseInt(params.id)))

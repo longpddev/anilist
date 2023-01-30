@@ -1,11 +1,12 @@
 "use client"
 
 import { getCharactersByAnimeId } from "@/api/apiQuery"
-import { cache, use } from "react"
-import { runOnce } from "utils/app"
+import { memoize } from "lodash"
+import { use } from "react"
+import { runOnce, sleep } from "utils/app"
 import Content from "./content"
 
-const fetchData = cache(async (id: number) => {
+const fetchData = memoize(async (id: number) => {
   return await getCharactersByAnimeId(id, 1)
 })
 

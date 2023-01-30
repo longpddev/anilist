@@ -1,6 +1,7 @@
 import {
   MediaFormat,
   MediaListStatus,
+  MediaRelation,
   MediaSeason,
   MediaSource,
   MediaStatus,
@@ -54,6 +55,22 @@ export const MediaListLabel = {
 export const MediaSourceLabel = {
   [MediaSource.Anime]: "Anime",
   [MediaSource.Manga]: "Manga",
+}
+
+export const MediaRelationLabel = {
+  [MediaRelation.Adaptation]: "Adaptation",
+  [MediaRelation.Alternative]: "Alternative",
+  [MediaRelation.Character]: "Character",
+  [MediaRelation.Compilation]: "Compilation",
+  [MediaRelation.Contains]: "Contains",
+  [MediaRelation.Other]: "Other",
+  [MediaRelation.Parent]: "Parent",
+  [MediaRelation.Prequel]: "Prequel",
+  [MediaRelation.Sequel]: "Sequel",
+  [MediaRelation.SideStory]: "Side Story",
+  [MediaRelation.Source]: "Source",
+  [MediaRelation.SpinOff]: "SpinOff",
+  [MediaRelation.Summary]: "Summary",
 }
 
 export const ListLayout = {

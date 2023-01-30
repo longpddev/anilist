@@ -3,6 +3,7 @@ import {
   ANIME_CHARACTERS,
   ANIME_DETAIL,
   ANIME_DETAIL_FOR_LAYOUT,
+  ANIME_REVIEWS,
   ANIME_STATS,
   ANIME_STATS_TYPE,
   ANIME_THREAD,
@@ -1317,6 +1318,9 @@ export const getCharactersByAnimeId = async (id: number, page: number) => {
     page,
   })
 }
+
+export const getAnimeReviewsByAnimeId = async (id: number, page: number) =>
+  await fetchGql(ANIME_REVIEWS, { id, page })
 
 export const getAnimeThreadAnimeId = async (
   id: number,

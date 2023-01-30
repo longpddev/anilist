@@ -1,20 +1,22 @@
 "use client"
 
+import { getAnimeReviewsByAnimeId } from "@/api/apiQuery"
+import fetchGql from "@/api/server"
 import { ReviewItem } from "@/pageSetup/AnimeDetail"
 import Card, { CardContentLeft } from "@/ui/Card"
 import Link from "app/context/NLink"
-import React from "react"
+import { ANIME_REVIEWS } from "gql/animeDetail"
+import { memoize } from "lodash"
+import React, { use } from "react"
+import { sleep } from "utils/app"
+import Content from "./content"
 
+const fetchData = memoize(
+  async (id: number) => await getAnimeReviewsByAnimeId(id, 1)
+)
 const page = ({ params }: { params: { id: string } }) => {
-  return (
-    <div className="grid grid-cols-1 gap-4 max-w-[700px]">
-      {/* {Array(10)
-        .fill(1)
-        .map((item, i) => (
-          <ReviewItem key={i} />
-        ))} */}
-    </div>
-  )
+  const data = use(fetchData(parseInt(params.id)))
+  return <Content initData={data} animeId={parseInt(params.id)} />
 }
 
 export default page

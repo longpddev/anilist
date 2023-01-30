@@ -96,6 +96,20 @@ export const ANIME_DETAIL_FOR_LAYOUT = graphql(`
   }
 `)
 
+export const ANIME_DETAIL_WATCH = graphql(`
+  query AnimeDetailWatch($id: Int, $type: MediaType, $isAdult: Boolean) {
+    Media(id: $id, type: $type, isAdult: $isAdult) {
+      id
+      streamingEpisodes {
+        site
+        title
+        thumbnail
+        url
+      }
+    }
+  }
+`)
+
 export const ANIME_DETAIL = graphql(`
   query AnimeDetail($id: Int, $type: MediaType, $isAdult: Boolean) {
     Media(id: $id, type: $type, isAdult: $isAdult) {
@@ -332,7 +346,7 @@ export const ANIME_CHARACTERS = graphql(`
   query AnimeCharacters($id: Int, $page: Int) {
     Media(id: $id) {
       id
-      characters(page: $page, perPage: 10, sort: [ROLE, RELEVANCE, ID]) {
+      characters(page: $page, perPage: 20, sort: [ROLE, RELEVANCE, ID]) {
         pageInfo {
           total
           perPage
@@ -416,6 +430,41 @@ export const ANIME_STATS = graphql(`
   }
 `)
 
+export const ANIME_REVIEWS = graphql(`
+  query AnimeReviews($id: Int, $page: Int) {
+    Media(id: $id) {
+      id
+      title {
+        userPreferred
+      }
+      reviews(page: $page, sort: [RATING_DESC, ID]) {
+        pageInfo {
+          total
+          perPage
+          currentPage
+          lastPage
+          hasNextPage
+        }
+        nodes {
+          id
+          summary
+          rating
+          ratingAmount
+          user {
+            id
+            name
+            avatar {
+              large
+            }
+          }
+        }
+      }
+    }
+  }
+`)
+
+export type ANIME_REVIEWS_TYPE = ResultOf<typeof ANIME_REVIEWS>
+export type ANIME_DETAIL_WATCH_TYPE = ResultOf<typeof ANIME_DETAIL_WATCH>
 export type ANIME_DETAIL_FOR_LAYOUT_TYPE = ResultOf<
   typeof ANIME_DETAIL_FOR_LAYOUT
 >

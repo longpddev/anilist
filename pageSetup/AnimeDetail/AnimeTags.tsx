@@ -18,7 +18,7 @@ const AnimeTags: React.FC<{
   return (
     <div className="mt-5">
       <h2 className="text-sm font-medium text-text mb-2.5">Tags</h2>
-      <ul>
+      <ul className=" sm:max-h-full max-h-[250px] overflow-auto">
         {tags.map((item, i) =>
           item ? (
             <li

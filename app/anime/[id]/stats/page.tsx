@@ -1,12 +1,13 @@
 "use client"
 
 import { getAnimeStatsById } from "@/api/apiQuery"
+import { memoize } from "lodash"
 
-import React, { cache, use } from "react"
-import { runOnce } from "utils/app"
+import React, { use } from "react"
+import { runOnce, sleep } from "utils/app"
 import Content from "./content"
 
-const fetchData = cache(async (id: number) => {
+const fetchData = memoize(async (id: number) => {
   return await getAnimeStatsById(id)
 })
 const page = ({ params }: { params: { id: string } }) => {

@@ -17,7 +17,7 @@ interface ISelectProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "children">,
     IInput {
   children: IOption[]
-  onChangeValue: (val: IValue) => void
+  onChangeValue?: (val: IValue) => void
 }
 const Select: React.FC<ISelectProps> = ({
   children,
@@ -78,7 +78,7 @@ const Select: React.FC<ISelectProps> = ({
                       selected: item.value === value,
                     })}
                     onClick={() => {
-                      onChangeValue(item.value)
+                      onChangeValue && onChangeValue(item.value)
                       const element = ref.current
 
                       element && element.blur()

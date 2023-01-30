@@ -82,3 +82,5 @@ export const runOnce = <F extends (...a: any) => any>(cb: F): F => {
 
 export const sleep = (time: number) =>
   new Promise((res) => setTimeout(res, time))
+
+export const loop = (count: number) => Array(count).fill(1)

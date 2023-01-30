@@ -27,4 +27,14 @@ const Ranking: React.FC<{
     <span className="inline-block w-full text-center ">{children}</span>
   </Link>
 )
+
+export const RankingSkeleton = () => (
+  <div
+    className={clsx(
+      "block py-2 text-[12px] whitespace-nowrap rounded-md anime-detail__section text-transparent skeleton"
+    )}
+  >
+    <span className="inline-block w-full text-center ">sldkfjlksdjf</span>
+  </div>
+)
 export default Ranking

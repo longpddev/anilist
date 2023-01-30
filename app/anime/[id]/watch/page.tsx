@@ -1,20 +1,31 @@
+"use client"
+
+import fetchGql from "@/api/server"
 import { ReviewItem, WatchItem } from "@/pageSetup/AnimeDetail"
 import Card, { CardContentLeft } from "@/ui/Card"
 import Link from "app/context/NLink"
-import React from "react"
+import { ANIME_DETAIL_WATCH } from "gql/animeDetail"
+import { memoize } from "lodash"
+import React, { use } from "react"
+import { sleep } from "utils/app"
 
+const fetchData = memoize(async (id: number) => {
+  return await fetchGql(ANIME_DETAIL_WATCH, { id })
+})
 const page = ({ params }: { params: { id: string } }) => {
+  const data = use(fetchData(parseInt(params.id)))
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-      {/* {Array(10)
-        .fill(1)
-        .map((item, i) => (
+      {data.Media?.streamingEpisodes?.map((item, i) =>
+        item ? (
           <WatchItem
-            name="Episode 11 - No Matter How Many Lives"
-            src="https://img1.ak.crunchyroll.com/i/spire4-tmb/4ad7006be1e71909f942ef870410db581644738682_full.jpg"
+            name={item.title || ""}
+            src={item.thumbnail || undefined}
+            url={item.url || ""}
             key={i}
           />
-        ))} */}
+        ) : null
+      )}
     </div>
   )
 }

@@ -7,58 +7,14 @@ import { CardContentLeftSkeleton } from "@/ui/Card/CardContentLeft"
 import { STAFF_TYPE } from "gql/staff"
 import Link from "app/context/NLink"
 import React from "react"
-
-const StaffItem: React.FC<{
-  data: {
-    id: number
-    name: string
-    src: string | undefined
-    tags: string[]
-  }
-}> = ({ data }) => {
-  return (
-    <Card>
-      <CardContentLeft
-        src={data.src}
-        alt={data.name}
-        height={80}
-        tags={data.tags}
-        link={`/staff/${data.id}`}
-      >
-        <Link
-          href={`/staff/${data.id}`}
-          className="text-text-lighter hover:text-blue text-[12px]"
-        >
-          {data.name}
-        </Link>
-      </CardContentLeft>
-    </Card>
-  )
-}
-
-const StaffItemSkeleton = () => {
-  return (
-    <Card>
-      <CardContentLeftSkeleton
-        src={undefined}
-        alt=""
-        height={80}
-        tags={["Design Manager (eps 11, 14)"]}
-      >
-        <div className="text-transparent skeleton text-[12px]">
-          Tanjirou Kamado
-        </div>
-      </CardContentLeftSkeleton>
-    </Card>
-  )
-}
+import StaffItem, { StaffItemSkeleton } from "./StaffItem"
 
 const Content: React.FC<{
   initData: STAFF_TYPE
   animeId: number
 }> = ({ initData, animeId }) => {
   const { ref, list, loading, error } = useInfinityLoading(
-    (page) => getStaffByAnimeId(animeId, page, 10),
+    (page) => getStaffByAnimeId(animeId, page, 20),
     initData,
     {
       selector: (data) => data.Media?.staff?.edges || [],

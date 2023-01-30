@@ -27,15 +27,17 @@ const HeadDetailMenu: React.FC<{
 }> = ({ links }) => {
   const currentPath = usePathname() || ""
   return (
-    <ul className="flex justify-around mt-auto overflow-auto">
-      {links.map((item, i) => (
-        <li className="p-3.5" key={i}>
-          <NavLink currentPath={currentPath} href={item.link}>
-            {item.name}
-          </NavLink>
-        </li>
-      ))}
-    </ul>
+    <div className=" mt-auto overflow-auto w-full">
+      <ul className="flex justify-around min-w-max">
+        {links.map((item, i) => (
+          <li className="p-3.5" key={i}>
+            <NavLink currentPath={currentPath} href={item.link}>
+              {item.name}
+            </NavLink>
+          </li>
+        ))}
+      </ul>
+    </div>
   )
 }
 
