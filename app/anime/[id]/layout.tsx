@@ -8,7 +8,8 @@ export const generateStaticParams = () => []
 export const revalidate = 3600
 
 const cacheGetAnimeByIdForLayout = cacheFetch(getAnimeByIdForLayout, {
-  ttl: revalidate * 1000,
+  ttl: 3600 * 1000,
+  getKey: (id) => "anime_layout_" + id,
 })
 
 const Layout = async ({

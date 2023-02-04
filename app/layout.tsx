@@ -27,9 +27,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="site-theme-dark">
-      <head>
-        <ScrollRestorationDisabler />
-      </head>
+      <head>{/* <ScrollRestorationDisabler /> */}</head>
       <body className={overpass.className}>
         <ProviderProgress>
           <Header />

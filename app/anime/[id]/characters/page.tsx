@@ -1,14 +1,17 @@
-"use client"
-
 import { getCharactersByAnimeId } from "@/api/apiQuery"
-import memoize from "lodash/memoize"
+import cacheFetch from "cache/cacheFetch"
 import { use } from "react"
-import { runOnce, sleep } from "utils/app"
 import Content from "./content"
 
-const fetchData = memoize(async (id: number) => {
-  return await getCharactersByAnimeId(id, 1)
-})
+const fetchData = cacheFetch(
+  async (id: number) => {
+    return await getCharactersByAnimeId(id, 1)
+  },
+  {
+    ttl: 3600_000,
+    getKey: (id) => "anime_detail_characters_" + id,
+  }
+)
 
 const Page = ({ params }: { params: { id: string } }) => {
   const characters = use(fetchData(parseInt(params.id)))

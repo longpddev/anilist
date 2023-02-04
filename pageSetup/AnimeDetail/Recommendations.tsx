@@ -1,3 +1,5 @@
+"use client"
+
 import { MediaSource, MediaType, Recommendation } from "anilist_gql/graphql"
 import Image from "next/image"
 import Link from "app/context/NLink"

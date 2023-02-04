@@ -1,5 +1,3 @@
-"use client"
-
 import { getAnimeById, getAnimeThreadAnimeId } from "@/api/apiQuery"
 import {
   PageSection,
@@ -26,13 +24,20 @@ import Link from "app/context/NLink"
 import React, { use } from "react"
 import { getMediaLabel, getSourceLabel, getStatusLabel } from "utils/Anilist"
 import memoize from "lodash/memoize"
+import cacheFetch from "cache/cacheFetch"
 
-const fetchData = memoize(async (id: number) => {
-  return await Promise.all([
-    getAnimeById(id),
-    getAnimeThreadAnimeId(id, 1, 4),
-  ] as const)
-})
+const fetchData = cacheFetch(
+  async (id: number) => {
+    return await Promise.all([
+      getAnimeById(id),
+      getAnimeThreadAnimeId(id, 1, 4),
+    ] as const)
+  },
+  {
+    ttl: 3600_000,
+    getKey: (id) => "anime_detail_" + id,
+  }
+)
 
 const page = ({ params }: { params: { id: string } }) => {
   const [data, threads] = use(fetchData(parseInt(params.id)))
