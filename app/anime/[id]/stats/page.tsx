@@ -1,9 +1,5 @@
 import { getAnimeStatsById } from "@/api/apiQuery"
 import cacheFetch from "cache/cacheFetch"
-import memoize from "lodash/memoize"
-
-import React, { use } from "react"
-import { runOnce, sleep } from "utils/app"
 import Content from "./content"
 
 const fetchData = cacheFetch(
@@ -15,8 +11,8 @@ const fetchData = cacheFetch(
     getKey: (id) => "anime_detail_stats_" + id,
   }
 )
-const page = ({ params }: { params: { id: string } }) => {
-  const data = use(fetchData(parseInt(params.id)))
+const page = async ({ params }: { params: { id: string } }) => {
+  const data = await fetchData(parseInt(params.id))
   return <Content data={data} />
 }
 

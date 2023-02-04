@@ -3,11 +3,7 @@
 import { PageSection } from "@/pageSetup/AnimeDetail"
 import Card, { CardContentLeft } from "@/ui/Card"
 import Icon from "@/ui/Icon"
-import {
-  faComment,
-  faHeart,
-  faMessage,
-} from "@fortawesome/free-solid-svg-icons"
+import { faComment, faHeart } from "@fortawesome/free-solid-svg-icons"
 import Image from "next/image"
 import Link from "app/context/NLink"
 import React from "react"

@@ -1,6 +1,5 @@
 import { getCharactersByAnimeId } from "@/api/apiQuery"
 import cacheFetch from "cache/cacheFetch"
-import { use } from "react"
 import Content from "./content"
 
 const fetchData = cacheFetch(
@@ -13,8 +12,8 @@ const fetchData = cacheFetch(
   }
 )
 
-const Page = ({ params }: { params: { id: string } }) => {
-  const characters = use(fetchData(parseInt(params.id)))
+const Page = async ({ params }: { params: { id: string } }) => {
+  const characters = await fetchData(parseInt(params.id))
   return <Content initData={characters} animeId={parseInt(params.id)} />
 }
 

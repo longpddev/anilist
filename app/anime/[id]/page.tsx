@@ -9,12 +9,7 @@ import {
   Watch,
 } from "@/pageSetup/AnimeDetail"
 import Card, { CardContentLeft, CardContentRight } from "@/ui/Card"
-import type {
-  MediaFormat,
-  MediaStatus,
-  MediaType,
-  MediaRelation,
-} from "anilist_gql/graphql"
+import type { MediaFormat, MediaStatus, MediaType } from "anilist_gql/graphql"
 import {
   MediaListColor,
   MediaListLabel,
@@ -23,7 +18,6 @@ import {
 import Link from "app/context/NLink"
 import React, { use } from "react"
 import { getMediaLabel, getSourceLabel, getStatusLabel } from "utils/Anilist"
-import memoize from "lodash/memoize"
 import cacheFetch from "cache/cacheFetch"
 
 const fetchData = cacheFetch(
@@ -39,8 +33,8 @@ const fetchData = cacheFetch(
   }
 )
 
-const page = ({ params }: { params: { id: string } }) => {
-  const [data, threads] = use(fetchData(parseInt(params.id)))
+const page = async ({ params }: { params: { id: string } }) => {
+  const [data, threads] = await fetchData(parseInt(params.id))
   const media = data.Media
   return (
     <div>

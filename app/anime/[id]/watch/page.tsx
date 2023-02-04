@@ -1,12 +1,7 @@
 import fetchGql from "@/api/server"
-import { ReviewItem, WatchItem } from "@/pageSetup/AnimeDetail"
-import Card, { CardContentLeft } from "@/ui/Card"
-import Link from "app/context/NLink"
+import { WatchItem } from "@/pageSetup/AnimeDetail"
 import cacheFetch from "cache/cacheFetch"
 import { ANIME_DETAIL_WATCH } from "gql/animeDetail"
-import memoize from "lodash/memoize"
-import React, { use } from "react"
-import { sleep } from "utils/app"
 
 const fetchData = cacheFetch(
   async (id: number) => {
@@ -17,8 +12,8 @@ const fetchData = cacheFetch(
     getKey: (id) => "anime_detail_watch_" + id,
   }
 )
-const page = ({ params }: { params: { id: string } }) => {
-  const data = use(fetchData(parseInt(params.id)))
+const page = async ({ params }: { params: { id: string } }) => {
+  const data = await fetchData(parseInt(params.id))
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
       {data.Media?.streamingEpisodes?.map((item, i) =>
