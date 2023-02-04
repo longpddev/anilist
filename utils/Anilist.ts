@@ -1,4 +1,4 @@
-import {
+import type {
   MediaFormat,
   MediaSeason,
   MediaSource,
@@ -73,19 +73,19 @@ export function closestColor(color: IRgb, listColor: ListColor) {
   return result
 }
 export const getMediaLabel = (key: MediaFormat) => {
-  return MediaFormatLabel[key as keyof typeof MediaFormatLabel]
+  return MediaFormatLabel[key as unknown as keyof typeof MediaFormatLabel]
 }
 
 export const getSeasonLabel = (key: MediaSeason) => {
-  return MediaSeasonLabel[key as keyof typeof MediaSeasonLabel]
+  return MediaSeasonLabel[key as unknown as keyof typeof MediaSeasonLabel]
 }
 
 export const getSourceLabel = (key: MediaSource) => {
-  return MediaSourceLabel[key as keyof typeof MediaSourceLabel]
+  return MediaSourceLabel[key as unknown as keyof typeof MediaSourceLabel]
 }
 
 export const getStatusLabel = (key: MediaStatus) => {
-  return MediaStatusLabel[key as keyof typeof MediaStatusLabel]
+  return MediaStatusLabel[key as unknown as keyof typeof MediaStatusLabel]
 }
 
 export function getVariableOfTooltipCard(

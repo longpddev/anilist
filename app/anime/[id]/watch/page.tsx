@@ -5,7 +5,7 @@ import { ReviewItem, WatchItem } from "@/pageSetup/AnimeDetail"
 import Card, { CardContentLeft } from "@/ui/Card"
 import Link from "app/context/NLink"
 import { ANIME_DETAIL_WATCH } from "gql/animeDetail"
-import { memoize } from "lodash"
+import memoize from "lodash/memoize"
 import React, { use } from "react"
 import { sleep } from "utils/app"
 

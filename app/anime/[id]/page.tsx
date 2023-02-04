@@ -11,7 +11,7 @@ import {
   Watch,
 } from "@/pageSetup/AnimeDetail"
 import Card, { CardContentLeft, CardContentRight } from "@/ui/Card"
-import {
+import type {
   MediaFormat,
   MediaStatus,
   MediaType,
@@ -25,7 +25,7 @@ import {
 import Link from "app/context/NLink"
 import React, { use } from "react"
 import { getMediaLabel, getSourceLabel, getStatusLabel } from "utils/Anilist"
-import { memoize } from "lodash"
+import memoize from "lodash/memoize"
 
 const fetchData = memoize(async (id: number) => {
   return await Promise.all([
@@ -55,7 +55,7 @@ const page = ({ params }: { params: { id: string } }) => {
                   <small className="text-[12px] text-blue lowercase font-medium block mb-2">
                     {
                       MediaRelationLabel[
-                        item?.relationType as keyof typeof MediaRelationLabel
+                        item?.relationType as unknown as keyof typeof MediaRelationLabel
                       ]
                     }
                   </small>
@@ -136,9 +136,13 @@ const page = ({ params }: { params: { id: string } }) => {
           media?.stats?.statusDistribution
             ?.map((item) => ({
               title:
-                MediaListLabel[item?.status as keyof typeof MediaListLabel],
+                MediaListLabel[
+                  item?.status as unknown as keyof typeof MediaListLabel
+                ],
               color:
-                MediaListColor[item?.status as keyof typeof MediaListColor],
+                MediaListColor[
+                  item?.status as unknown as keyof typeof MediaListColor
+                ],
               value: item?.amount || 0,
             }))
             .sort((a, b) => b.value - a.value) || []

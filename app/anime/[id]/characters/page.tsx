@@ -1,7 +1,7 @@
 "use client"
 
 import { getCharactersByAnimeId } from "@/api/apiQuery"
-import { memoize } from "lodash"
+import memoize from "lodash/memoize"
 import { use } from "react"
 import { runOnce, sleep } from "utils/app"
 import Content from "./content"

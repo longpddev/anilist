@@ -1,14 +1,7 @@
-import clsx from "clsx"
-import Link from "app/context/NLink"
 import React from "react"
-import { usePathname } from "next/navigation"
 import Image from "next/image"
 import AddToWhistList from "./AddToWhistList"
-import { AnimeDetailQuery } from "anilist_gql/graphql"
-import {
-  ANIME_DETAIL_FOR_LAYOUT_TYPE,
-  ANIME_DETAIL_TYPE,
-} from "gql/animeDetail"
+import { ANIME_DETAIL_FOR_LAYOUT_TYPE } from "gql/animeDetail"
 import noImage from "@/assets/no_image.jpeg"
 import HeadDetailMenu from "./HeadDetailMenu"
 

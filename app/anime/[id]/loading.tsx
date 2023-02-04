@@ -7,7 +7,7 @@ import { WatchSkeleton } from "@/pageSetup/AnimeDetail/Watch"
 import Card from "@/ui/Card"
 import { CardContentLeftSkeleton } from "@/ui/Card/CardContentLeft"
 import { CardContentRightSkeleton } from "@/ui/Card/CardContentRight"
-import { MediaType } from "anilist_gql/graphql"
+import type { MediaType } from "anilist_gql/graphql"
 import React from "react"
 
 const loop = (count: number) => Array(count).fill(1)
@@ -114,7 +114,7 @@ const Loading = () => {
         data={loop(4).map((item) => ({
           title: "skdjf skjdhfj",
           id: 0,
-          type: MediaType.Anime,
+          type: "Anime" as MediaType,
           src: undefined,
         }))}
       />

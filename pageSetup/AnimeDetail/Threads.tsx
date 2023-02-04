@@ -73,7 +73,7 @@ const ThreadsItemSkeleton: React.FC<{
       </p>
       <div className="flex gap-2 items-center">
         <div className="w-[25px] h-[25px] skeleton rounded-full"></div>
-        <p className="text-transparent ">
+        <div className="text-transparent ">
           <p className="text-inherit skeleton">{data.userName}</p>
           &nbsp;
           <p className="text-inherit skeleton">
@@ -83,7 +83,7 @@ const ThreadsItemSkeleton: React.FC<{
               .format("DD [days]")}{" "}
             ago
           </p>
-        </p>
+        </div>
         <div className="ml-auto space-x-2 skeleton min-h-[40px]"></div>
       </div>
     </div>

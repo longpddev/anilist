@@ -106,9 +106,13 @@ const Content: React.FC<{
           data.Media?.distribution?.status
             ?.map((item) => ({
               title:
-                MediaListLabel[item?.status as keyof typeof MediaListLabel],
+                MediaListLabel[
+                  item?.status as unknown as keyof typeof MediaListLabel
+                ],
               color:
-                MediaListColor[item?.status as keyof typeof MediaListColor],
+                MediaListColor[
+                  item?.status as unknown as keyof typeof MediaListColor
+                ],
               value: item?.amount || 0,
             }))
             .sort((a, b) => b.value - a.value) || []

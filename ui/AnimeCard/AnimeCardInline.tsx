@@ -7,7 +7,6 @@ import Icon from "../Icon"
 import { faSmile } from "@fortawesome/free-regular-svg-icons"
 import { IMEDIA_FIELD, MEDIA_FIELD } from "gql/media"
 import { useFragment } from "anilist_gql"
-import dayjs from "dayjs"
 import {
   getColorOfScore,
   getMediaLabel,
@@ -15,11 +14,9 @@ import {
   getStatusLabel,
   getVariableOfTooltipCard,
 } from "utils/Anilist"
-import AnimeCardTooltip from "./AnimeCardTooltip"
-import clsx from "clsx"
 import Genres from "../Genres"
 import { numberToTime, timeToString } from "utils/app"
-import { MediaFormat } from "anilist_gql/graphql"
+import type { MediaFormat } from "anilist_gql/graphql"
 
 const AnimeCardInline: React.FC<{
   data: IMEDIA_FIELD
@@ -100,7 +97,7 @@ const AnimeCardInline: React.FC<{
               {item.format && getMediaLabel(item.format)}
             </p>
             <small className="text-gray-600 text-[12px]">
-              {item.format === MediaFormat.Movie
+              {item.format === ("Movie" as MediaFormat)
                 ? timeToString(numberToTime(item.duration * 60 * 1000))
                 : item.episodes + " episodes"}
             </small>

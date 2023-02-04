@@ -1,7 +1,7 @@
 import { getStaffByAnimeId } from "@/api/apiQuery"
 import Card, { CardContentLeft } from "@/ui/Card"
 import Link from "app/context/NLink"
-import { memoize } from "lodash"
+import memoize from "lodash/memoize"
 import React, { use } from "react"
 import Content from "./content"
 

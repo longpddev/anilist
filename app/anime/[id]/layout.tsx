@@ -1,7 +1,15 @@
 import { getAnimeById, getAnimeByIdForLayout } from "@/api/apiQuery"
 import { AnimeDetailContainer, HeadDetail } from "@/pageSetup/AnimeDetail"
 import AnimeDetailMain from "@/pageSetup/AnimeDetail/AnimeDetailMain"
+import cacheFetch from "cache/cacheFetch"
 import React from "react"
+
+export const generateStaticParams = () => []
+export const revalidate = 3600
+
+const cacheGetAnimeByIdForLayout = cacheFetch(getAnimeByIdForLayout, {
+  ttl: revalidate * 1000,
+})
 
 const Layout = async ({
   children,
@@ -11,7 +19,7 @@ const Layout = async ({
   params: { id: string }
 }) => {
   const start = new Date().getTime()
-  const data = await getAnimeByIdForLayout(parseInt(params.id))
+  const data = await cacheGetAnimeByIdForLayout(parseInt(params.id))
   const totalTime = new Date().getTime() - start
   return (
     <>
@@ -26,6 +34,4 @@ const Layout = async ({
   )
 }
 
-// export const generateStaticParams = () => []
-// export const revalidate = 3600
 export default Layout

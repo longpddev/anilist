@@ -11,6 +11,7 @@ import "nprogress/nprogress.css"
 import { TooltipContent } from "../ui/Tooltip"
 import Footer from "@/ui/Footer"
 import { ProviderProgress } from "./context/progress"
+import ScrollRestorationDisabler from "./ScrollRestorationDisabler"
 config.autoAddCss = false
 library.add(fas)
 library.add(far)
@@ -26,7 +27,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="site-theme-dark">
-      <head />
+      <head>
+        <ScrollRestorationDisabler />
+      </head>
       <body className={overpass.className}>
         <ProviderProgress>
           <Header />

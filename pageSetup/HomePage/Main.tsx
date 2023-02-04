@@ -1,4 +1,4 @@
-import { HomeSectionQuery } from "anilist_gql/graphql"
+import type { HomeSectionQuery } from "anilist_gql/graphql"
 import React from "react"
 import FormFilter from "./FormFilter"
 import AllTimePopular from "./Section/AllTimePopular"
@@ -25,9 +25,7 @@ const Main: React.FC<{ sectionData: HomeSectionQuery }> = ({ sectionData }) => {
       {sectionData.popular?.media && (
         <AllTimePopular data={sectionData.popular?.media} />
       )}
-      {sectionData.top?.media && (
-        <Top100Anime data={sectionData.top?.media} />
-      )}
+      {sectionData.top?.media && <Top100Anime data={sectionData.top?.media} />}
     </div>
   )
 }

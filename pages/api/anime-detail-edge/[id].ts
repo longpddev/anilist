@@ -1,6 +1,3 @@
-import fetchGql from "@/api/client"
-import { MediaType } from "anilist_gql/graphql"
-import { ANIME_DETAIL } from "gql/animeDetail"
 import { MethodFactoryForEdge } from "@/api/api_helper"
 
 export const config = {

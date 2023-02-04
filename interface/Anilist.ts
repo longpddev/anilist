@@ -1,77 +1,68 @@
-import {
-  MediaFormat,
-  MediaListStatus,
-  MediaRelation,
-  MediaSeason,
-  MediaSource,
-  MediaStatus,
-} from "anilist_gql/graphql"
-
 export const MediaFormatLabel = {
-  [MediaFormat.Tv]: "TV show",
-  [MediaFormat.Movie]: "Movie",
-  [MediaFormat.Music]: "Music",
-  [MediaFormat.Novel]: "Novel",
-  [MediaFormat.Ona]: "Ona",
-  [MediaFormat.OneShot]: "OneShot",
-  [MediaFormat.Ova]: "Ova",
-  [MediaFormat.Special]: "Special",
-  [MediaFormat.TvShort]: "TvShort",
-}
+  Tv: "TV show",
+  Movie: "Movie",
+  Music: "Music",
+  Novel: "Novel",
+  Ona: "Ona",
+  OneShot: "OneShot",
+  Ova: "Ova",
+  Special: "Special",
+  TvShort: "TvShort",
+} as const
 
 export const MediaSeasonLabel = {
-  [MediaSeason.Fall]: "Fall",
-  [MediaSeason.Spring]: "Spring",
-  [MediaSeason.Summer]: "Summer",
-  [MediaSeason.Winter]: "Winter",
-}
+  Fall: "Fall",
+  Spring: "Spring",
+  Summer: "Summer",
+  Winter: "Winter",
+} as const
 
 export const MediaStatusLabel = {
-  [MediaStatus.Finished]: "Finished",
-  [MediaStatus.Cancelled]: "Cancelled",
-  [MediaStatus.Hiatus]: "Hiatus",
-  [MediaStatus.NotYetReleased]: "NotYetReleased",
-  [MediaStatus.Releasing]: "Releasing",
-}
+  Finished: "Finished",
+  Cancelled: "Cancelled",
+  Hiatus: "Hiatus",
+  NotYetReleased: "NotYetReleased",
+  Releasing: "Releasing",
+} as const
 
 export const MediaListColor = {
-  [MediaListStatus.Completed]: "rgb(104, 214, 57)",
-  [MediaListStatus.Current]: "rgb(146, 86, 243)",
-  [MediaListStatus.Dropped]: "rgb(232, 93, 117)",
-  [MediaListStatus.Paused]: "rgb(247, 121, 164)",
-  [MediaListStatus.Planning]: "rgb(2, 169, 255)",
-  [MediaListStatus.Repeating]: "white",
-}
+  Completed: "rgb(104, 214, 57)",
+  Current: "rgb(146, 86, 243)",
+  Dropped: "rgb(232, 93, 117)",
+  Paused: "rgb(247, 121, 164)",
+  Planning: "rgb(2, 169, 255)",
+  Repeating: "white",
+} as const
 
 export const MediaListLabel = {
-  [MediaListStatus.Completed]: "Completed",
-  [MediaListStatus.Current]: "Current",
-  [MediaListStatus.Dropped]: "Dropped",
-  [MediaListStatus.Paused]: "Paused",
-  [MediaListStatus.Planning]: "Planning",
-  [MediaListStatus.Repeating]: "Repeating",
-}
+  Completed: "Completed",
+  Current: "Current",
+  Dropped: "Dropped",
+  Paused: "Paused",
+  Planning: "Planning",
+  Repeating: "Repeating",
+} as const
 
 export const MediaSourceLabel = {
-  [MediaSource.Anime]: "Anime",
-  [MediaSource.Manga]: "Manga",
-}
+  Anime: "Anime",
+  Manga: "Manga",
+} as const
 
 export const MediaRelationLabel = {
-  [MediaRelation.Adaptation]: "Adaptation",
-  [MediaRelation.Alternative]: "Alternative",
-  [MediaRelation.Character]: "Character",
-  [MediaRelation.Compilation]: "Compilation",
-  [MediaRelation.Contains]: "Contains",
-  [MediaRelation.Other]: "Other",
-  [MediaRelation.Parent]: "Parent",
-  [MediaRelation.Prequel]: "Prequel",
-  [MediaRelation.Sequel]: "Sequel",
-  [MediaRelation.SideStory]: "Side Story",
-  [MediaRelation.Source]: "Source",
-  [MediaRelation.SpinOff]: "SpinOff",
-  [MediaRelation.Summary]: "Summary",
-}
+  Adaptation: "Adaptation",
+  Alternative: "Alternative",
+  Character: "Character",
+  Compilation: "Compilation",
+  Contains: "Contains",
+  Other: "Other",
+  Parent: "Parent",
+  Prequel: "Prequel",
+  Sequel: "Sequel",
+  SideStory: "Side Story",
+  Source: "Source",
+  SpinOff: "SpinOff",
+  Summary: "Summary",
+} as const
 
 export const ListLayout = {
   Grid: "Grid",

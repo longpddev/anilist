@@ -17,7 +17,7 @@ import {
 } from "utils/Anilist"
 import AnimeCardTooltip from "./AnimeCardTooltip"
 import Genres from "../Genres"
-import { MediaFormat } from "anilist_gql/graphql"
+import type { MediaFormat } from "anilist_gql/graphql"
 import { numberToTime, timeToString } from "utils/app"
 
 const AnimeCardRect: React.FC<{
@@ -85,7 +85,7 @@ const AnimeCardRect: React.FC<{
               <>
                 <span className="card-tooltip__separator">•</span>
                 <span>
-                  {item.format === MediaFormat.Movie
+                  {item.format === ("Movie" as MediaFormat)
                     ? timeToString(numberToTime(item.duration * 60 * 1000))
                     : item.episodes + " episodes"}
                 </span>
