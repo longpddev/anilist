@@ -1,9 +1,11 @@
 import { getAnimeById, getAnimeByIdForLayout } from "@/api/apiQuery"
-import { AnimeDetailContainer, HeadDetail } from "@/pageSetup/AnimeDetail"
+
 import AnimeDetailMain from "@/pageSetup/AnimeDetail/AnimeDetailMain"
 import cacheFetch from "cache/cacheFetch"
 import React from "react"
-
+import "@/pageSetup/AnimeDetail/AnimeDetail.scss.css"
+import AnimeDetailContainer from "@/pageSetup/AnimeDetail/AnimeDetailContainer"
+import HeadDetail from "@/pageSetup/AnimeDetail/HeadDetail"
 export const generateStaticParams = () => []
 export const revalidate = 3600
 

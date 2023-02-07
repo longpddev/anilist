@@ -1,8 +1,7 @@
 "use client"
-import React, { forwardRef, useContext, useEffect } from "react"
+import React, { useContext, useEffect } from "react"
 import NProgress from "nprogress"
 import { usePathname, useSearchParams } from "next/navigation"
-import Link from "next/link"
 type SubscriberFn = () => void
 const initContent = () => {
   const subscriberStart = new Map<SubscriberFn, SubscriberFn>()

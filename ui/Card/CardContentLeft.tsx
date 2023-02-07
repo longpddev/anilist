@@ -11,6 +11,7 @@ export interface ICardContentLeftProps {
   height?: number
   tags?: string[]
   className?: string
+  wrapClass?: string
 }
 const CardContentLeft: React.FC<ICardContentLeftProps> = ({
   children,
@@ -19,13 +20,14 @@ const CardContentLeft: React.FC<ICardContentLeftProps> = ({
   src,
   alt,
   link,
+  wrapClass,
   height = 115,
 }) => {
   return (
     <div
       className={clsx("w-full flex-auto flex", className)}
       style={{
-        maxHeight: height,
+        minHeight: height,
       }}
     >
       {link ? (
@@ -36,6 +38,9 @@ const CardContentLeft: React.FC<ICardContentLeftProps> = ({
             className="inline-block h-full"
             width={height * 0.7391304347826086}
             height={height}
+            style={{
+              minWidth: `${height * 0.7391304347826086}px`,
+            }}
           />
         </Link>
       ) : (
@@ -49,7 +54,7 @@ const CardContentLeft: React.FC<ICardContentLeftProps> = ({
       )}
 
       <div className="p-3 flex flex-col">
-        <div>{children}</div>
+        <div className={clsx(wrapClass)}>{children}</div>
         {tags && (
           <p className="text-[12px] mt-auto text-text-lighter">
             <span>{tags.join(" · ")}</span>
@@ -72,7 +77,7 @@ export const CardContentLeftSkeleton: React.FC<ICardContentLeftProps> = ({
   <div
     className={clsx("w-full flex-auto flex", className)}
     style={{
-      maxHeight: height,
+      minHeight: height,
     }}
   >
     <div

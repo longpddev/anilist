@@ -5,21 +5,26 @@ import Icon from "../Icon"
 import Range, { IRangeProps } from "./Range"
 interface IRangeLabelProps extends IRangeProps {
   label: string
-  className?: string
+  wrapClass?: string
+  labelClass?: string
   onReset?: () => void
 }
 const RangeLabel: React.FC<IRangeLabelProps> = ({
-  className,
+  wrapClass,
   label,
   value,
+  labelClass,
   onReset,
   ...props
 }) => {
   const observerOnChange = useRef<(v: number) => void>(() => {})
   return (
-    <div className={clsx(className)}>
+    <div className={clsx(wrapClass)}>
       <div className="flex justify-between mb-4 gap-2 ">
-        <label className="text-gray-900  text-[15px] font-semibold" htmlFor="">
+        <label
+          className={labelClass || "text-gray-900 text-[15px] font-semibold"}
+          htmlFor=""
+        >
           {label}
         </label>
         <small className="space-x-2 block text-gray-700 leading-[inherit] ">

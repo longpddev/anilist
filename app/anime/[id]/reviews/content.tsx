@@ -2,9 +2,10 @@
 
 import { getAnimeReviewsByAnimeId } from "@/api/apiQuery"
 import useInfinityLoading from "@/hooks/useInfinityLoading"
-import { ReviewItem } from "@/pageSetup/AnimeDetail"
-import { ReviewItemSkeleton } from "@/pageSetup/AnimeDetail/ReviewItem"
-import { ANIME_REVIEWS_TYPE } from "gql/animeDetail"
+import ReviewItem, {
+  ReviewItemSkeleton,
+} from "@/pageSetup/AnimeDetail/ReviewItem"
+import type { ANIME_REVIEWS_TYPE } from "gql/animeDetail"
 import React from "react"
 import { loop } from "utils/app"
 

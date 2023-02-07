@@ -123,7 +123,7 @@ const AdvanceOption = () => {
           <div className="flex justify-between items-end flex-col sm:flex-row gap-4">
             <RangeLabel
               label="Minimum tag percentage"
-              className="md:max-w-[240px] w-full"
+              wrapClass="md:max-w-[240px] w-full"
               value={range1}
               onChange={range1Set}
               max={100}

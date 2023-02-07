@@ -1,9 +1,9 @@
 import clsx from "clsx"
 import Image from "next/image"
-import Link from "app/context/NLink"
 import React from "react"
-import PageSection from "./PageSection"
+import PageSection from "@/ui/PageSection"
 import noImage from "@/assets/no_image.jpeg"
+
 export const WatchItem: React.FC<{
   src: string | undefined
   name: string

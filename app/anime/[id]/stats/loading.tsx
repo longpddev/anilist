@@ -1,6 +1,6 @@
-import { PageSection } from "@/pageSetup/AnimeDetail"
 import { RankingSkeleton } from "@/pageSetup/AnimeDetail/Ranking"
 import { StatusDistributionSkeleton } from "@/pageSetup/AnimeDetail/StatusDistribution"
+import PageSection from "@/ui/PageSection"
 import React from "react"
 import { loop } from "utils/app"
 

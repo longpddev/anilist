@@ -1,10 +1,11 @@
-import { getAnimeStatsById } from "@/api/apiQuery"
+import fetchGql from "@/api/server"
 import cacheFetch from "cache/cacheFetch"
+import { ANIME_STATS } from "gql/animeDetail"
 import Content from "./content"
 
 const fetchData = cacheFetch(
   async (id: number) => {
-    return await getAnimeStatsById(id)
+    return await fetchGql(ANIME_STATS, { id })
   },
   {
     ttl: 3600_000,

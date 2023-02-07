@@ -1,15 +1,17 @@
 import Image from "next/image"
 import Link from "app/context/NLink"
 import React from "react"
-import PageSection from "./PageSection"
+import PageSection from "@/ui/PageSection"
 import Genres from "@/ui/Genres"
 import noImage from "@/assets/no_image.jpeg"
 import dayjs from "utils/dayjs"
+import { GenresSkeleton } from "@/ui/Genres/Genres"
+import { numberToTime, timeToList } from "utils/app"
 interface ThreadData {
   id: number
   commentId: number
   title: string
-  userAvatar: string
+  userAvatar: string | undefined
   userName: string
   repliedAt: number
   tags: { name: string; id: number }[]
@@ -42,9 +44,10 @@ const ThreadsItem: React.FC<{
             className="text-text-lighter hover:text-blue"
           >
             replied{" "}
-            {dayjs
-              .duration(new Date().getTime() - data.repliedAt * 1000)
-              .format("DD [days]")}{" "}
+            {timeToList(
+              numberToTime(new Date().getTime() - data.repliedAt * 1000),
+              true
+            ).at(0)}{" "}
             ago
           </Link>
         </p>
@@ -68,23 +71,27 @@ const ThreadsItemSkeleton: React.FC<{
 }> = ({ data }) => {
   return (
     <div className="rounded-md bg-foreground p-4 relative">
-      <p className="text-sm text-transparent skeleton inline-block mb-3">
+      <p className="text-sm text-transparent skeleton inline-block mb-3 max-w-[350px]">
         {data.title}
       </p>
       <div className="flex gap-2 items-center">
         <div className="w-[25px] h-[25px] skeleton rounded-full"></div>
-        <div className="text-transparent ">
-          <p className="text-inherit skeleton">{data.userName}</p>
+        <div className="text-transparent skeleton">
+          <span className="text-inherit ">{data.userName}</span>
           &nbsp;
-          <p className="text-inherit skeleton">
+          <span className="text-inherit">
             replied{" "}
             {dayjs
               .duration(new Date().getTime() - data.repliedAt * 1000)
               .format("DD [days]")}{" "}
             ago
-          </p>
+          </span>
         </div>
-        <div className="ml-auto space-x-2 skeleton min-h-[40px]"></div>
+        <div className="ml-auto space-x-2 min-h-[40px] flex flex-wrap items-center">
+          {data.tags.map((item) => (
+            <GenresSkeleton text={item.name} key={item.id}></GenresSkeleton>
+          ))}
+        </div>
       </div>
     </div>
   )
@@ -92,10 +99,11 @@ const ThreadsItemSkeleton: React.FC<{
 
 const Threads: React.FC<{
   data: ThreadData[]
-}> = ({ data }) => {
+  full?: boolean
+}> = ({ data, full }) => {
   if (data.length === 0) return null
   return (
-    <PageSection title="Thread">
+    <PageSection title="Thread" full={full}>
       {data.map((item, i) => (
         <ThreadsItem key={i} data={item} />
       ))}
@@ -105,9 +113,10 @@ const Threads: React.FC<{
 
 export const ThreadsSkeleton: React.FC<{
   data: ThreadData[]
-}> = ({ data }) => {
+  full?: boolean
+}> = ({ data, full }) => {
   return (
-    <PageSection title="Thread">
+    <PageSection title="Thread" full={full}>
       {data.map((item, i) => (
         <ThreadsItemSkeleton key={i} data={item} />
       ))}

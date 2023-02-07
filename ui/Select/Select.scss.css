@@ -1,6 +1,6 @@
 .select {
   position: relative;
-
+  --input-padding: 11.5px 16px;
   &__input {
     @apply rounded-[6px] cursor-pointer overflow-hidden;
     box-shadow: 0 14px 30px rgba(var(--color-shadow-blue), 0.1), 0 4px 4px rgba(var(--color-shadow-blue), 0.04);
@@ -9,7 +9,7 @@
       @apply text-sm font-semibold w-full text-[13px] bg-inherit;
 
       letter-spacing: 0.03rem;
-      padding: 11.5px 16px;
+      padding: var(--input-padding);
       line-height: 1.15;
     }
   }
@@ -46,4 +46,8 @@
       }
     }
   }
+}
+
+.select.sm {
+  --input-padding: 9px 16px;
 }

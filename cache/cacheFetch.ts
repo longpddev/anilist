@@ -29,14 +29,17 @@ const cacheFetch = <P extends any[], V>(
           } else {
             const result = await cache.get(key)
             res(JSON.parse(result.data.toString()))
+            // console.log(`${key}: load from cache`)
             return
           }
         }
 
         const result = await fn(...args)
         await cache.set(key, JSON.stringify(result))
+        console.log(`${key}: get new`)
         res(result)
       } catch (e) {
+        console.error(e)
         rej(e)
       } finally {
         cachePromise.delete(key)

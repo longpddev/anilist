@@ -1,13 +1,5 @@
 import { getAnimeById, getAnimeThreadAnimeId } from "@/api/apiQuery"
-import {
-  PageSection,
-  Recommendations,
-  Reviews,
-  StatusDistribution,
-  Threads,
-  Trailer,
-  Watch,
-} from "@/pageSetup/AnimeDetail"
+
 import Card, { CardContentLeft, CardContentRight } from "@/ui/Card"
 import type { MediaFormat, MediaStatus, MediaType } from "anilist_gql/graphql"
 import {
@@ -19,6 +11,13 @@ import Link from "app/context/NLink"
 import React, { use } from "react"
 import { getMediaLabel, getSourceLabel, getStatusLabel } from "utils/Anilist"
 import cacheFetch from "cache/cacheFetch"
+import PageSection from "@/ui/PageSection"
+import StatusDistribution from "@/pageSetup/AnimeDetail/StatusDistribution"
+import Trailer from "@/pageSetup/AnimeDetail/Trailer"
+import Threads from "@/pageSetup/AnimeDetail/Threads"
+import Watch from "@/pageSetup/AnimeDetail/Watch"
+import Recommendations from "@/pageSetup/AnimeDetail/Recommendations"
+import Reviews from "@/pageSetup/AnimeDetail/Reviews"
 
 const fetchData = cacheFetch(
   async (id: number) => {

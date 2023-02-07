@@ -1,6 +1,6 @@
 "use client"
 
-import { debounce } from "lodash"
+import debounce from "lodash/debounce"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import React, { forwardRef, useContext, useRef } from "react"

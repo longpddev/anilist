@@ -35,11 +35,16 @@ const tooltipTemplate = (title: string, description: string) => `
       ? `<div class="tooltip__title">${title}</div>`
       : ""
   }
-  <div class="tooltip__content">
-    <div class="tooltip__description">
-      ${description}
-    </div>
-  </div>
+  ${
+    typeof description === "string" && description.trim().length > 0
+      ? `<div class="tooltip__content">
+        <div class="tooltip__description">
+          ${description}
+        </div>
+      </div>`
+      : ""
+  }
+  
 `
 
 export const useTooltipContext = () => {

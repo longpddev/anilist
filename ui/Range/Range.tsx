@@ -13,6 +13,7 @@ export interface IRangeProps {
   min: number
   max: number
   step?: number
+  className?: string
   onMove?: (v: number) => void
 }
 const Range: React.FC<IRangeProps> = ({
@@ -22,6 +23,7 @@ const Range: React.FC<IRangeProps> = ({
   max,
   step,
   onMove,
+  className,
 }) => {
   const [draft, draftSet] = useState(value)
   const ref = useRef<HTMLDivElement>(null)
@@ -32,7 +34,10 @@ const Range: React.FC<IRangeProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value])
   return (
-    <div ref={ref} className="range w-full flex box-content select-none">
+    <div
+      ref={ref}
+      className={clsx("range w-full flex box-content select-none", className)}
+    >
       <div className="bg-sky-300 rounded-full flex-auto"></div>
       <RangePoint
         onMove={(val) => {

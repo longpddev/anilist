@@ -1,14 +1,12 @@
 "use client"
 
-import { getCharactersByAnimeId } from "@/api/apiQuery"
-import useFetch from "@/hooks/useFetch"
+// import { getCharactersByAnimeId } from "@/api/apiQuery"
 import useInfinityLoading from "@/hooks/useInfinityLoading"
-import useVisible from "@/hooks/useVisible"
 import CharacterCard, {
   CharacterCardLoading,
 } from "@/pageSetup/AnimeDetail/CharacterCard"
 import { Select } from "@/ui/Select"
-import { ANIME_CHARACTERS_TYPE } from "gql/animeDetail"
+import type { ANIME_CHARACTERS_TYPE } from "gql/animeDetail"
 import React, { useMemo, useRef, useState } from "react"
 
 const Content: React.FC<{
@@ -16,7 +14,7 @@ const Content: React.FC<{
   animeId: number
 }> = ({ initData, animeId }) => {
   const { list, loading, ref } = useInfinityLoading(
-    (page: number) => getCharactersByAnimeId(animeId, page),
+    (page: number) => Promise.resolve(initData),
     initData,
     {
       selector: (data) => data.Media?.characters?.edges || [],

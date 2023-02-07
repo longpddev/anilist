@@ -1,7 +1,7 @@
 "use client"
 
 import React, { Suspense } from "react"
-import PageSection from "./PageSection"
+import PageSection from "@/ui/PageSection"
 import dynamic from "next/dynamic"
 const ReactPlayer = dynamic(() => import("react-player/lazy"), {
   ssr: false,

@@ -1,5 +1,5 @@
 import React from "react"
-import PageSection from "./PageSection"
+import PageSection from "@/ui/PageSection"
 import ReviewItem, { ReviewData, ReviewItemSkeleton } from "./ReviewItem"
 
 const Reviews: React.FC<{

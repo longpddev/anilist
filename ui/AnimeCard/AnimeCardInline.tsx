@@ -42,7 +42,7 @@ const AnimeCardInline: React.FC<{
       >
         <div className="flex items-center">
           <div className="w-[48px]">
-            <Link href={"/"}>
+            <Link href={`/anime/${item.id}`}>
               <div className="w-full relative pt-[143.243243%] flex h-content rounded-sm overflow-hidden">
                 <Image
                   src={item.coverImage?.large || ""}
@@ -58,7 +58,7 @@ const AnimeCardInline: React.FC<{
             <Link
               title={item.title?.userPreferred || ""}
               className="line-clamp-1 anime-card-inline__title mb-2 anime-card__title text-gray-900"
-              href={"/"}
+              href={`/anime/${item.id}`}
             >
               {item.title?.userPreferred || ""}
             </Link>

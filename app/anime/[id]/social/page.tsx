@@ -1,65 +1,81 @@
-"use client"
-
-import { PageSection } from "@/pageSetup/AnimeDetail"
-import Card, { CardContentLeft } from "@/ui/Card"
-import Icon from "@/ui/Icon"
-import { faComment, faHeart } from "@fortawesome/free-solid-svg-icons"
-import Image from "next/image"
-import Link from "app/context/NLink"
 import React from "react"
+import PageSection from "@/ui/PageSection"
+import cacheFetch from "cache/cacheFetch"
+import fetchGql from "@/api/server"
+import { ANIME_ACTIVITY, ANIME_THREAD } from "gql/animeDetail"
 
-const SocialItem = ({ params }: { params: { id: string } }) => {
+import Threads from "pageSetup/AnimeDetail/Threads"
+import SocialItem from "../../../../ui/SocialItem"
+
+const fetchDataActivity = cacheFetch(
+  (id: number) => fetchGql(ANIME_ACTIVITY, { id, page: 1 }),
+  { ttl: 120_000, getKey: (id) => `anime_detail_activity_${id}` }
+)
+
+const fetchDataThread = cacheFetch(
+  (id: number) => fetchGql(ANIME_THREAD, { id, page: 1 }),
+  { ttl: 120_000, getKey: (id) => `anime_detail_thread_${id}` }
+)
+
+const page = async ({ params }: { params: { id: string } }) => {
+  const [initDataActivity, initDataThread] = await Promise.all([
+    fetchDataActivity(parseInt(params.id)),
+    fetchDataThread(parseInt(params.id)),
+  ])
+
+  const activities = initDataActivity.Page?.activities
+  const thread = initDataThread.Page?.threads
   return (
-    <Card>
-      <CardContentLeft src={undefined} alt="" height={115} className="relative">
-        <Link href="/" className="text-blue text-sm block mb-2">
-          KeijiNikolaevich
-        </Link>
-
-        <p className="text-[12px]">
-          <span>Completed </span>
-          <Link href={"/"} className="text-blue ">
-            Kimetsu no Yaiba
-          </Link>
-        </p>
-        <div className="mt-2">
-          <Link href="/">
-            <Image
-              width={36}
-              height={36}
-              className="rounded-md"
-              alt=""
-              src="https://s4.anilist.co/file/anilistcdn/user/avatar/large/b6152368-0SG71cTa1w5B.jpg"
-            ></Image>
-          </Link>
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+      {activities && (
+        <div>
+          <PageSection title="Recent Activity" full>
+            {activities.map((item, i) =>
+              item && "id" in item ? (
+                <SocialItem
+                  key={i}
+                  data={{
+                    mediaId: item.media?.id || 0,
+                    mediaName: item.media?.title?.userPreferred || "",
+                    mediaSrc: item.media?.coverImage?.large || undefined,
+                    status: `${item.status || ""} ${
+                      item.progress ? `${item.progress} of` : ""
+                    }`,
+                    time: item.createdAt * 1000,
+                    userName: item.user?.name || "",
+                    userSrc: item.user?.avatar?.large || undefined,
+                    id: item.id,
+                    replyCount: item.replyCount || 0,
+                    likeCount: item.likeCount || 0,
+                  }}
+                />
+              ) : null
+            )}
+          </PageSection>
         </div>
+      )}
 
-        <time className="text-[12px] font-semibold absolute top-4 right-4">
-          12 minutes ago
-        </time>
-        <div className="text-[12px] space-x-2 text-blue-dim  absolute bottom-4 right-4">
-          <button className="hover:text-blue">
-            <Icon icon={faComment}></Icon>
-          </button>
-          <button className="hover:text-blue">
-            <Icon icon={faHeart}></Icon>
-          </button>
+      {thread && (
+        <div>
+          <Threads
+            full
+            data={thread.map((item) => ({
+              id: item?.id || 0,
+              commentId: item?.replyCommentId || 0,
+              title: item?.title || "",
+              userAvatar: item?.user?.avatar?.large || undefined,
+              userName: item?.user?.name || "",
+              repliedAt: item?.repliedAt || 0,
+              tags:
+                item?.categories?.map((tag) => ({
+                  name: tag?.name || "",
+                  id: tag?.id || 0,
+                })) || [],
+            }))}
+          />
         </div>
-      </CardContentLeft>
-    </Card>
-  )
-}
-const page = () => {
-  return (
-    <PageSection title="Recent Activity">
-      <div className="grid grid-cols-1 gap-4 mt-4">
-        {/* {Array(10)
-          .fill(1)
-          .map((item, i) => (
-            <SocialItem key={i} />
-          ))} */}
-      </div>
-    </PageSection>
+      )}
+    </div>
   )
 }
 

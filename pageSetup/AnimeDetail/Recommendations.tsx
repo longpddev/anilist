@@ -4,7 +4,7 @@ import { MediaSource, MediaType, Recommendation } from "anilist_gql/graphql"
 import Image from "next/image"
 import Link from "app/context/NLink"
 import React from "react"
-import PageSection from "./PageSection"
+import PageSection from "@/ui/PageSection"
 import noImage from "@/assets/no_image.jpeg"
 
 interface RecommendationItemData {

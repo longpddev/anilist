@@ -46,7 +46,7 @@ const AnimeCard: React.FC<{
       <Link href={`/anime/${item.id}`}>
         <div className="w-full relative pt-[143.243243%] rounded-md mb-2 overflow-hidden">
           <Image
-            src={item.coverImage?.extraLarge || ""}
+            src={item.coverImage?.large || ""}
             alt={item.title?.userPreferred || "anime image"}
             width={185}
             height={265}

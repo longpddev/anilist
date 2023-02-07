@@ -40,11 +40,11 @@ const AnimeCardRect: React.FC<{
     >
       <div className="w-[185px]">
         <Link
-          href={"/"}
+          href={`/anime/${item.id}`}
           className="w-full block relative pt-[143.243243%] overflow-hidden"
         >
           <Image
-            src={item.coverImage?.extraLarge || ""}
+            src={item.coverImage?.large || ""}
             alt={item.title?.userPreferred || "anime image"}
             width={185}
             height={265}

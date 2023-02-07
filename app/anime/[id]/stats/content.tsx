@@ -2,11 +2,12 @@
 
 import dynamic from "next/dynamic"
 import React from "react"
-import { PageSection, StatusDistribution } from "@/pageSetup/AnimeDetail"
 import Ranking from "@/pageSetup/AnimeDetail/Ranking"
 import { MediaListColor, MediaListLabel } from "interface/Anilist"
 import { ANIME_STATS_TYPE } from "gql/animeDetail"
 import dayjs from "utils/dayjs"
+import PageSection from "@/ui/PageSection"
+import StatusDistribution from "@/pageSetup/AnimeDetail/StatusDistribution"
 const ChartLine = dynamic(() => import("@/ui/Chart/ChartLine"), {
   ssr: false,
 })

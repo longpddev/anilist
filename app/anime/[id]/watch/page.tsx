@@ -1,5 +1,5 @@
 import fetchGql from "@/api/server"
-import { WatchItem } from "@/pageSetup/AnimeDetail"
+import { WatchItem } from "@/pageSetup/AnimeDetail/Watch"
 import cacheFetch from "cache/cacheFetch"
 import { ANIME_DETAIL_WATCH } from "gql/animeDetail"
 

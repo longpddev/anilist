@@ -4,17 +4,30 @@ import clsx from "clsx"
 import { usePathname } from "next/navigation"
 import React from "react"
 
+type IClassStates = {
+  hover?: string
+  default?: string
+  active?: string
+}
+
 const NavLink: React.FC<{
   children: React.ReactNode
   href: string
   currentPath: string
-}> = ({ children, href, currentPath }) => (
+  className?: string
+  classStates?: IClassStates
+}> = ({ children, href, currentPath, className, classStates }) => (
   <NLink
     href={href}
-    className={clsx(" hover:text-blue", {
-      "text-text-lighter": currentPath !== href,
-      "text-blue": currentPath === href,
-    })}
+    className={clsx(
+      "inline-block",
+      classStates?.hover || "hover:text-blue",
+      className,
+      {
+        [classStates?.default || "text-text-lighter"]: currentPath !== href,
+        [classStates?.active || "text-blue"]: currentPath === href,
+      }
+    )}
   >
     {children}
   </NLink>
@@ -24,14 +37,22 @@ const HeadDetailMenu: React.FC<{
     name: string
     link: string
   }[]
-}> = ({ links }) => {
+  className?: string
+  linkClass?: string
+  classStates?: IClassStates
+}> = ({ links, classStates, className, linkClass }) => {
   const currentPath = usePathname() || ""
   return (
-    <div className=" mt-auto overflow-auto w-full">
+    <div className={clsx(className || "mt-auto overflow-auto w-full")}>
       <ul className="flex justify-around min-w-max">
         {links.map((item, i) => (
-          <li className="p-3.5" key={i}>
-            <NavLink currentPath={currentPath} href={item.link}>
+          <li key={i}>
+            <NavLink
+              currentPath={currentPath}
+              href={item.link}
+              classStates={classStates}
+              className={linkClass || "p-3.5"}
+            >
               {item.name}
             </NavLink>
           </li>

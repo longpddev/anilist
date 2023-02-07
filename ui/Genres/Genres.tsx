@@ -38,4 +38,22 @@ const Genres: React.FC<IGenresProps> = ({
   )
 }
 
+export const GenresSkeleton: React.FC<IGenresProps> = ({
+  text,
+  className,
+  ...props
+}) => {
+  return (
+    <span
+      {...props}
+      className={clsx(
+        className,
+        "rounded-full anime-genres text-transparent skeleton overflow-hidden text-[11px] font-bold leading-[1.636363em]"
+      )}
+    >
+      {text}
+    </span>
+  )
+}
+
 export default Genres

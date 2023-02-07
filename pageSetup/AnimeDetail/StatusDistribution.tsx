@@ -1,5 +1,5 @@
 import React from "react"
-import PageSection from "./PageSection"
+import PageSection from "@/ui/PageSection"
 
 const StatusDistribution: React.FC<{
   data: { color: string; title: string; value: number }[]

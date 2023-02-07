@@ -1,8 +1,5 @@
 import Card, { CardContentLeft, CardContentRight } from "@/ui/Card"
-import { CardContentLeftSkeleton } from "@/ui/Card/CardContentLeft"
-import { CardContentRightSkeleton } from "@/ui/Card/CardContentRight"
-import Link from "app/context/NLink"
-import React from "react"
+import NLink from "app/context/NLink"
 
 interface CharacterData {
   character: {
@@ -29,12 +26,12 @@ const CharacterCard: React.FC<{
         height={80}
         tags={data.character.tags}
       >
-        <Link
+        <NLink
           href={`/characters/${data.character.id}`}
           className="text-text-lighter hover:text-blue text-[12px]"
         >
           {data.character.name}
-        </Link>
+        </NLink>
       </CardContentLeft>
       {data.actor ? (
         <CardContentRight
@@ -43,41 +40,18 @@ const CharacterCard: React.FC<{
           height={80}
           tags={data.actor.tags}
         >
-          <Link
+          <NLink
             href={`/staff/${data.actor.id}`}
             className="text-text-lighter hover:text-blue text-[12px]"
           >
             {data.actor.name}
-          </Link>
+          </NLink>
         </CardContentRight>
       ) : null}
     </Card>
   )
 }
 
-export const CharacterCardLoading = () => (
-  <Card>
-    <CardContentLeftSkeleton
-      src={undefined}
-      alt=""
-      height={80}
-      tags={["ksjdhfkjshdf"]}
-    >
-      <div className="text-transparent rounded-sm p-px skeleton text-[12px]">
-        data.character.name
-      </div>
-    </CardContentLeftSkeleton>
-    <CardContentRightSkeleton
-      src={undefined}
-      alt=""
-      height={80}
-      tags={["main kjdhfkj"]}
-    >
-      <div className="text-transparent rounded-sm p-px skeleton text-[12px]">
-        data.actor.name
-      </div>
-    </CardContentRightSkeleton>
-  </Card>
-)
+export const CharacterCardLoading = () => null
 
 export default CharacterCard

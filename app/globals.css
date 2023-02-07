@@ -199,3 +199,8 @@ hr {
   --chart-pie-border-color: rgba(61, 180, 242, 0.2);
   --chart-pie-border-hover-color: rgba(61, 180, 242, 1);
 }
+
+.point-green {
+  @apply bg-green rounded-full;
+  box-shadow: 0 0 5px rgba(123, 213, 85, 0.8);
+}

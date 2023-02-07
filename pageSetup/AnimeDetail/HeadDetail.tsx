@@ -29,12 +29,12 @@ const HeadDetail: React.FC<{
           <Image
             className="rounded-sm w-full"
             src={
-              data.Media?.coverImage?.large ||
               data.Media?.coverImage?.extraLarge ||
+              data.Media?.coverImage?.large ||
               noImage
             }
-            width={215}
-            height={300}
+            width={322.5}
+            height={450}
             alt=""
           />
           <div className="md:my-4 flex-auto self-end">
